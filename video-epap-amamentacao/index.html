@@ -152,20 +152,15 @@
       #s4-note b { font-weight: 800; color: var(--ink); }
 
       /* ---------- cena 5 — formadora ---------- */
-      #s5 { align-items: center; text-align: center; }
-      #s5-head { margin-bottom: 38px; }
-      #s5-palco { position: relative; display: flex; align-items: center; justify-content: center; }
-      #s5-halo { position: absolute; width: 700px; height: 700px; border-radius: 50%;
-        background: radial-gradient(closest-side, rgba(143,162,238,.30), rgba(143,162,238,0)); }
-      #s5-foto { position: relative; height: 560px; width: auto; display: block;
-        filter: drop-shadow(0 26px 66px rgba(0,0,0,.62)); }
-      #s5-rule { width: 300px; height: 2px; margin: 34px 0 26px; }
-      #s5-nome { font-size: 52px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); }
-      #s5-papel { font-size: 25px; font-weight: 600; letter-spacing: .3em; color: var(--epap-lt);
-        text-transform: uppercase; margin-top: 12px; padding-left: .3em; }
-      #s5-dest { margin-top: 40px; font-size: 27px; font-weight: 500; line-height: 1.5;
-        color: rgba(255,255,255,.78); }
-      #s5-dest b { font-weight: 800; color: var(--ink); }
+      #s5-head { margin-bottom: 40px; }
+      .nome-linha { font-size: 84px; font-weight: 900; line-height: 1.02; letter-spacing: -.035em;
+        color: var(--ink); white-space: nowrap; text-shadow: 0 24px 70px rgba(0,0,0,.72); }
+      #s5-papel { font-size: 30px; font-weight: 700; letter-spacing: .3em; color: var(--epap-lt);
+        text-transform: uppercase; margin-top: 22px; }
+      #s5-rule { width: 100%; margin: 46px 0 34px; }
+      #s5-dest-k { font-size: 24px; font-weight: 700; letter-spacing: .3em; color: var(--muted);
+        text-transform: uppercase; margin-bottom: 16px; }
+      #s5-dest { font-size: 36px; font-weight: 700; line-height: 1.3; color: var(--ink); }
 
       /* ---------- cena 6 ---------- */
       #s6 { align-items: center; text-align: center; }
@@ -279,16 +274,14 @@
         <div id="s5-head" class="label-row">
           <span class="label-dot"></span><span class="kicker">Formadora</span>
         </div>
-        <div id="s5-palco">
-          <div id="s5-halo"></div>
-          <img id="s5-foto" src="assets/formadora.png" alt="Dr.ª Vanessa Felipe de Deus" />
-        </div>
-        <div id="s5-rule" class="rule center"></div>
-        <div id="s5-nome">Dr.ª Vanessa Felipe de Deus</div>
+        <span class="mask"><span class="nome-linha s5-n">Dr.ª Vanessa</span></span>
+        <span class="mask"><span class="nome-linha s5-n">Felipe de Deus</span></span>
         <div id="s5-papel">Formadora</div>
+        <div id="s5-rule" class="rule"></div>
+        <div id="s5-dest-k">Destinatários</div>
         <div id="s5-dest">
-          Destinatários: <b>Terapeutas da Fala</b> e estudantes do 4.º ano
-          da Licenciatura em Terapia da Fala.
+          Terapeutas da Fala e estudantes do 4.º ano<br />
+          da Licenciatura em Terapia da Fala
         </div>
       </div>
 
@@ -388,20 +381,18 @@
         .to("#s4", { opacity: 0, duration: 0.55, ease: "power2.in" }, 23.0);
 
       /* ===== CENA 5 (23.2 – 28.8) ===== */
-      tl.set("#s5-head",  { opacity: 0, x: -26 }, 0)
-        .set("#s5-halo",  { opacity: 0, scale: 0.72 }, 0)
-        .set("#s5-foto",  { opacity: 0, scale: 0.92, y: 26 }, 0)
-        .set("#s5-rule",  { opacity: 0, scaleX: 0 }, 0)
-        .set("#s5-nome",  { opacity: 0, y: 24 }, 0)
-        .set("#s5-papel", { opacity: 0, y: 16 }, 0)
-        .set("#s5-dest",  { opacity: 0, y: 22 }, 0)
-        .to("#s5-head",  { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 23.4)
-        .to("#s5-halo",  { opacity: 1, scale: 1, duration: 1.4, ease: "power2.out" }, 23.5)
-        .to("#s5-foto",  { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power3.out" }, 23.6)
-        .to("#s5-rule",  { opacity: 1, scaleX: 1, duration: 0.9, ease: "power2.out" }, 24.4)
-        .to("#s5-nome",  { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 24.6)
-        .to("#s5-papel", { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 24.85)
-        .to("#s5-dest",  { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 25.1)
+      tl.set("#s5-head",   { opacity: 0, x: -26 }, 0)
+        .set(".s5-n",      { y: 110, opacity: 0 }, 0)
+        .set("#s5-papel",  { opacity: 0, y: 20 }, 0)
+        .set("#s5-rule",   { opacity: 0, scaleX: 0 }, 0)
+        .set("#s5-dest-k", { opacity: 0, y: 18 }, 0)
+        .set("#s5-dest",   { opacity: 0, y: 24 }, 0)
+        .to("#s5-head",   { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 23.4)
+        .to(".s5-n", { y: 0, opacity: 1, duration: 1.05, stagger: 0.13, ease: "power4.out" }, 23.6)
+        .to("#s5-papel",  { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 24.25)
+        .to("#s5-rule",   { opacity: 1, scaleX: 1, duration: 0.9, ease: "power2.out" }, 24.5)
+        .to("#s5-dest-k", { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 24.8)
+        .to("#s5-dest",   { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 25.0)
         .to("#s5", { opacity: 0, duration: 0.5, ease: "power2.in" }, 28.25);
 
       /* ===== CENA 6 (28.4 – 32) ===== */
