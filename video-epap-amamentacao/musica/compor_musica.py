@@ -6,7 +6,7 @@ Sintetizada de raiz: sem samples nem bibliotecas de terceiros.
 import numpy as np, wave
 
 SR = 44100
-DUR = 30.0
+DUR = 32.0
 N = int(SR * DUR)
 t = np.arange(N) / SR
 rng = np.random.default_rng(21)
