@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="pt-PT" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 900; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2"); }
+
+      :root {
+        --epap: #394893;
+        --epap-lt: #A6B5F2;
+        --ink: #ffffff;
+        --muted: rgba(255, 255, 255, 0.74);
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        margin: 0; width: 1080px; height: 1920px;
+        overflow: hidden; background: #05070d;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      .layer { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+
+      /* ---------- fundo ---------- */
+      #bg { object-fit: cover; }
+
+      #scrim {
+        background:
+          linear-gradient(180deg, rgba(5,7,13,.92) 0%, rgba(5,7,13,.45) 18%, rgba(5,7,13,0) 34%,
+                                  rgba(5,7,13,0) 58%, rgba(5,7,13,.62) 78%, rgba(5,7,13,.95) 100%),
+          radial-gradient(120% 62% at 50% 46%, rgba(5,7,13,0) 38%, rgba(5,7,13,.72) 100%);
+      }
+      #tint {
+        background: linear-gradient(160deg, rgba(57,72,147,.30) 0%, rgba(57,72,147,0) 42%,
+                                            rgba(57,72,147,0) 62%, rgba(57,72,147,.34) 100%);
+        mix-blend-mode: screen;
+      }
+      /* leito escuro por trás do texto — opacidade sobe nas cenas informativas */
+      #textbed {
+        background: linear-gradient(180deg,
+          rgba(4,6,12,0) 0%, rgba(4,6,12,.74) 20%, rgba(4,6,12,.86) 48%,
+          rgba(4,6,12,.74) 78%, rgba(4,6,12,0) 100%);
+      }
+      #grain {
+        opacity: .13; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch' seed='7'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+      }
+
+      /* ---------- cenas ---------- */
+      .scene {
+        position: absolute; inset: 0; width: 1080px; height: 1920px;
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 0 96px;
+      }
+
+      .kicker {
+        font-size: 27px; font-weight: 700; letter-spacing: .38em;
+        text-transform: uppercase; color: var(--epap-lt);
+      }
+      .label-row { display: flex; align-items: center; gap: 22px; }
+      .label-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--epap-lt);
+        box-shadow: 0 0 22px 6px rgba(143,162,238,.55); flex: none; }
+
+      /* folga vertical para não cortar ascendentes/descendentes durante o reveal */
+      .mask { overflow: hidden; display: block; padding: 20px 0; margin: -20px 0; }
+
+      .rule { height: 3px; background: linear-gradient(90deg, var(--epap-lt), rgba(143,162,238,0));
+        transform-origin: left center; }
+      .rule.center { transform-origin: center;
+        background: linear-gradient(90deg, rgba(143,162,238,0), var(--epap-lt), rgba(143,162,238,0)); }
+
+      /* leito radial localizado atrás dos lockups centrados (cenas 1 e 6) */
+      .lockup { position: relative; display: flex; flex-direction: column;
+        align-items: center; width: 100%; }
+      .lockup-bed { position: absolute; left: 50%; top: 50%;
+        width: 1240px; height: 940px; transform: translate(-50%, -50%);
+        background: radial-gradient(closest-side,
+          rgba(4,6,12,.90) 0%, rgba(4,6,12,.78) 42%, rgba(4,6,12,.34) 74%, rgba(4,6,12,0) 100%);
+      }
+
+      /* ---------- cena 1 ---------- */
+      #s1 { align-items: center; text-align: center; }
+      #s1-logo { width: 560px; display: block; filter: drop-shadow(0 18px 60px rgba(0,0,0,.65)); }
+      #s1-rule { width: 420px; height: 2px; margin: 54px 0 30px; }
+      #s1-sub { font-size: 26px; font-weight: 600; letter-spacing: .52em; color: var(--muted);
+        text-transform: uppercase; padding-left: .52em; }
+
+      /* ---------- cena 2 ---------- */
+      #s2-kicker { margin-bottom: 30px; }
+      .title-line {
+        font-size: 116px; font-weight: 900; line-height: .96; letter-spacing: -.035em;
+        color: var(--ink); text-transform: uppercase;
+        text-shadow: 0 24px 70px rgba(0,0,0,.72);
+      }
+      #s2-rule { width: 100%; margin: 46px 0 34px; }
+      #s2-years { font-size: 44px; font-weight: 800; letter-spacing: .22em; color: var(--ink); }
+      #s2-inst { font-size: 25px; font-weight: 500; letter-spacing: .2em; color: var(--muted);
+        text-transform: uppercase; margin-top: 18px; }
+
+      /* ---------- cena 3 ---------- */
+      #s3-head { margin-bottom: 74px; }
+      .stat { display: flex; align-items: baseline; gap: 30px; padding: 30px 0 30px 34px;
+        border-left: 4px solid rgba(143,162,238,.42); }
+      .stat + .stat { margin-top: 30px; }
+      .stat-num { font-size: 104px; font-weight: 900; letter-spacing: -.04em; color: var(--ink);
+        line-height: 1; min-width: 250px; text-shadow: 0 16px 44px rgba(0,0,0,.6); }
+      .stat-num small { font-size: 50px; font-weight: 800; letter-spacing: -.02em; }
+      .stat-txt { font-size: 31px; font-weight: 600; line-height: 1.32; color: rgba(255,255,255,.9); }
+      .stat-txt span { display: block; font-size: 22px; font-weight: 500; letter-spacing: .1em;
+        color: var(--muted); text-transform: uppercase; margin-top: 8px; }
+
+      /* ---------- cena 4 ---------- */
+      #s4-head { margin-bottom: 62px; }
+      .card {
+        background: linear-gradient(150deg, rgba(57,72,147,.52), rgba(12,16,34,.62));
+        border: 1px solid rgba(143,162,238,.34);
+        border-radius: 26px; padding: 44px 46px;
+        box-shadow: 0 26px 70px rgba(0,0,0,.5);
+      }
+      .card + .card { margin-top: 26px; }
+      .card-day { font-size: 26px; font-weight: 700; letter-spacing: .3em; color: var(--epap-lt);
+        text-transform: uppercase; }
+      .card-hours { font-size: 78px; font-weight: 900; letter-spacing: -.03em; color: var(--ink);
+        margin-top: 12px; line-height: 1; }
+      #s4-note { margin-top: 46px; font-size: 27px; font-weight: 500; line-height: 1.5;
+        color: rgba(255,255,255,.78); }
+      #s4-note b { font-weight: 800; color: var(--ink); }
+
+      /* ---------- cena 5 ---------- */
+      #s5-head { margin-bottom: 40px; }
+      #s5-day { font-size: 168px; font-weight: 900; letter-spacing: -.05em; color: var(--ink);
+        line-height: .92; display: block; text-shadow: 0 26px 76px rgba(0,0,0,.7); }
+      #s5-month { font-size: 52px; font-weight: 800; letter-spacing: .1em; color: var(--epap-lt);
+        text-transform: uppercase; margin-top: 14px; }
+      #s5-rule { width: 100%; margin: 46px 0 34px; }
+      #s5-theme-k { font-size: 24px; font-weight: 700; letter-spacing: .3em; color: var(--muted);
+        text-transform: uppercase; margin-bottom: 16px; }
+      #s5-theme { font-size: 38px; font-weight: 700; line-height: 1.28; color: var(--ink); }
+
+      /* ---------- cena 6 ---------- */
+      #s6 { align-items: center; text-align: center; }
+      #s6-logo { width: 480px; display: block; filter: drop-shadow(0 18px 60px rgba(0,0,0,.65)); }
+      #s6-rule { width: 360px; height: 2px; margin: 48px 0 34px; }
+      #s6-name { font-size: 40px; font-weight: 800; line-height: 1.26; letter-spacing: -.01em;
+        color: var(--ink); text-transform: uppercase; }
+      #s6-years { font-size: 28px; font-weight: 600; letter-spacing: .4em; color: var(--epap-lt);
+        margin-top: 22px; padding-left: .4em; }
+
+      /* ---------- marca persistente + progresso ---------- */
+      #brand { position: absolute; top: 108px; left: 96px; width: 190px; }
+      #progress-wrap { position: absolute; left: 96px; right: 96px; bottom: 96px; height: 3px;
+        background: rgba(255,255,255,.16); border-radius: 3px; overflow: hidden; }
+      #progress { width: 100%; height: 100%; transform-origin: left center;
+        background: linear-gradient(90deg, var(--epap-lt), #ffffff); }
+      #fadeout { background: #05070d; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="32"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- fundo: animação anatómica em loop contínuo -->
+      <video
+        id="bg" class="clip layer" muted
+        data-start="0" data-duration="32" data-track-index="0"
+        src="assets/bg-anatomia.mp4"
+      ></video>
+
+      <div id="tint"  class="clip layer" data-start="0" data-duration="32" data-track-index="1"></div>
+      <div id="scrim"   class="clip layer" data-start="0" data-duration="32" data-track-index="2"></div>
+      <div id="textbed" class="clip layer" data-start="0" data-duration="32" data-track-index="3"></div>
+      <div id="grain"   class="clip layer" data-start="0" data-duration="32" data-track-index="4"></div>
+
+      <!-- ===== CENA 1 — abertura ===== -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="5.6" data-track-index="5">
+        <div class="lockup">
+          <div id="s1-bed" class="lockup-bed" data-layout-allow-overflow></div>
+          <img id="s1-logo" src="assets/logo-epap-branco.png" alt="EPAP" />
+          <div id="s1-rule" class="rule center"></div>
+          <div id="s1-sub">Apresenta</div>
+        </div>
+      </div>
+
+      <!-- ===== CENA 2 — título ===== -->
+      <div id="s2" class="scene clip" data-start="5.2" data-duration="6.6" data-track-index="6">
+        <div id="s2-kicker" class="label-row">
+          <span class="label-dot"></span><span class="kicker">Especialização em</span>
+        </div>
+        <span class="mask"><span class="title-line s2-t">Motricidade</span></span>
+        <span class="mask"><span class="title-line s2-t">Orofacial</span></span>
+        <div id="s2-rule" class="rule"></div>
+        <div id="s2-years">2026 — 2028</div>
+        <div id="s2-inst">Formação pós-graduada · EPAP</div>
+      </div>
+
+      <!-- ===== CENA 3 — números ===== -->
+      <div id="s3" class="scene clip" data-start="11.4" data-duration="6.4" data-track-index="7">
+        <div id="s3-head" class="label-row">
+          <span class="label-dot"></span><span class="kicker">O programa</span>
+        </div>
+        <div class="stat s3-item">
+          <div class="stat-num">14</div>
+          <div class="stat-txt">Unidades curriculares<span>Temas 1 a 14</span></div>
+        </div>
+        <div class="stat s3-item">
+          <div class="stat-num">196<small>h</small></div>
+          <div class="stat-txt">Carga horária total<span>Sessões síncronas + autoestudo</span></div>
+        </div>
+        <div class="stat s3-item">
+          <div class="stat-num">100<small>%</small></div>
+          <div class="stat-txt">Online<span>Zoom + Plataforma EAD EPAP</span></div>
+        </div>
+      </div>
+
+      <!-- ===== CENA 4 — horários ===== -->
+      <div id="s4" class="scene clip" data-start="17.4" data-duration="6.2" data-track-index="8">
+        <div id="s4-head" class="label-row">
+          <span class="label-dot"></span><span class="kicker">Horário das sessões</span>
+        </div>
+        <div class="card s4-item">
+          <div class="card-day">Sábado</div>
+          <div class="card-hours">17h — 21h</div>
+        </div>
+        <div class="card s4-item">
+          <div class="card-day">Domingo</div>
+          <div class="card-hours">09h — 13h</div>
+        </div>
+        <div id="s4-note" class="s4-item">
+          Sessões em <b>sala virtual (Zoom)</b>, com atividades de autoestudo na
+          <b>Plataforma EAD EPAP</b>.
+        </div>
+      </div>
+
+      <!-- ===== CENA 5 — início ===== -->
+      <div id="s5" class="scene clip" data-start="23.2" data-duration="5.6" data-track-index="9">
+        <div id="s5-head" class="label-row">
+          <span class="label-dot"></span><span class="kicker">Início</span>
+        </div>
+        <span class="mask"><span id="s5-day">10 e 11</span></span>
+        <div id="s5-month">de outubro de 2026</div>
+        <div id="s5-rule" class="rule"></div>
+        <div id="s5-theme-k">Tema 1</div>
+        <div id="s5-theme">Morfofisiologia do Sistema Estomatognático</div>
+      </div>
+
+      <!-- ===== CENA 6 — encerramento ===== -->
+      <div id="s6" class="scene clip" data-start="28.4" data-duration="3.6" data-track-index="10">
+        <div class="lockup">
+          <div id="s6-bed" class="lockup-bed" data-layout-allow-overflow></div>
+          <img id="s6-logo" src="assets/logo-epap-branco-outro.png" alt="EPAP" />
+          <div id="s6-rule" class="rule center"></div>
+          <div id="s6-name">Especialização em<br />Motricidade Orofacial</div>
+          <div id="s6-years">2026 / 2028</div>
+        </div>
+      </div>
+
+      <!-- marca persistente -->
+      <img id="brand" class="clip" src="assets/logo-epap-branco-marca.png" alt="EPAP"
+           data-start="5.2" data-duration="23.2" data-track-index="11" />
+
+      <div id="progress-wrap" class="clip" data-start="0" data-duration="32" data-track-index="12">
+        <div id="progress"></div>
+      </div>
+
+      <div id="fadeout" class="clip layer" data-start="30.8" data-duration="1.2" data-track-index="13"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      /* ---- barra de progresso: 0 → 100% ao longo dos 32s ---- */
+      tl.set("#progress", { scaleX: 0 }, 0)
+        .to("#progress", { scaleX: 1, duration: 32, ease: "none" }, 0);
+
+      /* ---- fundo: zoom lento e contínuo ---- */
+      tl.set("#bg", { scale: 1.06 }, 0)
+        .to("#bg", { scale: 1.14, duration: 32, ease: "none" }, 0);
+
+      /* ---- leito de texto: discreto na abertura, forte nas cenas de dados ---- */
+      tl.set("#textbed", { opacity: 0.30 }, 0)
+        .to("#textbed", { opacity: 0.52, duration: 0.9, ease: "power2.inOut" }, 5.2)
+        .to("#textbed", { opacity: 0.94, duration: 0.9, ease: "power2.inOut" }, 11.2)
+        .to("#textbed", { opacity: 0.88, duration: 0.8, ease: "power2.inOut" }, 23.0)
+        .to("#textbed", { opacity: 0.44, duration: 0.9, ease: "power2.inOut" }, 28.2);
+
+      /* ================= CENA 1 (0 – 5.6) ================= */
+      tl.set("#s1-bed",  { opacity: 0, scale: 1.1 }, 0)
+        .set("#s1-logo", { opacity: 0, scale: 1.08, y: 16 }, 0)
+        .set("#s1-rule", { opacity: 0, scaleX: 0 }, 0)
+        .set("#s1-sub",  { opacity: 0, y: 18 }, 0)
+        .to("#s1-bed",  { opacity: 1, scale: 1, duration: 1.8, ease: "power2.out" }, 0.15)
+        .to("#s1-logo", { opacity: 1, scale: 1, y: 0, duration: 1.5, ease: "power3.out" }, 0.35)
+        .to("#s1-rule", { opacity: 1, scaleX: 1, duration: 1.1, ease: "power2.out" }, 1.25)
+        .to("#s1-sub",  { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 1.55)
+        .to("#s1-logo", { scale: 1.03, duration: 3.0, ease: "none" }, 1.85)
+        .to("#s1-bed", { opacity: 0, duration: 0.55, ease: "power2.in" }, 4.95)
+        .to(["#s1-logo", "#s1-rule", "#s1-sub"], { opacity: 0, y: -22, duration: 0.55, ease: "power2.in" }, 4.95);
+
+      /* ================= CENA 2 (5.2 – 11.8) ================= */
+      tl.set("#s2-kicker", { opacity: 0, x: -26 }, 0)
+        .set(".s2-t",      { y: 132, opacity: 0 }, 0)
+        .set("#s2-rule",   { scaleX: 0, opacity: 0 }, 0)
+        .set("#s2-years",  { opacity: 0, y: 26 }, 0)
+        .set("#s2-inst",   { opacity: 0, y: 18 }, 0)
+        .to("#s2-kicker", { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, 5.45)
+        .to(".s2-t", { y: 0, opacity: 1, duration: 1.15, stagger: 0.14, ease: "power4.out" }, 5.7)
+        .to("#s2-rule",  { scaleX: 1, opacity: 1, duration: 1.0, ease: "power2.out" }, 6.5)
+        .to("#s2-years", { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 6.8)
+        .to("#s2-inst",  { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 7.1)
+        .to("#s2", { opacity: 0, duration: 0.55, ease: "power2.in" }, 11.2);
+
+      /* ================= CENA 3 (11.4 – 17.8) ================= */
+      tl.set("#s3-head", { opacity: 0, x: -26 }, 0)
+        .set(".s3-item", { opacity: 0, x: -46 }, 0)
+        .to("#s3-head", { opacity: 1, x: 0, duration: 0.75, ease: "power3.out" }, 11.6)
+        .to(".s3-item", { opacity: 1, x: 0, duration: 1.0, stagger: 0.28, ease: "power3.out" }, 11.95)
+        .to("#s3", { opacity: 0, duration: 0.55, ease: "power2.in" }, 17.2);
+
+      /* ================= CENA 4 (17.4 – 23.6) ================= */
+      tl.set("#s4-head", { opacity: 0, x: -26 }, 0)
+        .set(".s4-item", { opacity: 0, y: 44, scale: 0.97 }, 0)
+        .to("#s4-head", { opacity: 1, x: 0, duration: 0.75, ease: "power3.out" }, 17.6)
+        .to(".s4-item", { opacity: 1, y: 0, scale: 1, duration: 0.95, stagger: 0.26, ease: "power3.out" }, 17.95)
+        .to("#s4", { opacity: 0, duration: 0.55, ease: "power2.in" }, 23.0);
+
+      /* ================= CENA 5 (23.2 – 28.8) ================= */
+      tl.set("#s5-head",   { opacity: 0, x: -26 }, 0)
+        .set("#s5-day",    { y: 190, opacity: 0 }, 0)
+        .set("#s5-month",  { opacity: 0, y: 26 }, 0)
+        .set("#s5-rule",   { scaleX: 0, opacity: 0 }, 0)
+        .set("#s5-theme-k",{ opacity: 0, y: 18 }, 0)
+        .set("#s5-theme",  { opacity: 0, y: 24 }, 0)
+        .to("#s5-head",   { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 23.4)
+        .to("#s5-day",    { y: 0, opacity: 1, duration: 1.15, ease: "power4.out" }, 23.6)
+        .to("#s5-month",  { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 24.1)
+        .to("#s5-rule",   { scaleX: 1, opacity: 1, duration: 0.95, ease: "power2.out" }, 24.45)
+        .to("#s5-theme-k",{ opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 24.75)
+        .to("#s5-theme",  { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 24.95)
+        .to("#s5", { opacity: 0, duration: 0.5, ease: "power2.in" }, 28.25);
+
+      /* ================= CENA 6 (28.4 – 32) ================= */
+      tl.set("#s6-bed",   { opacity: 0, scale: 1.08 }, 0)
+        .set("#s6-logo",  { opacity: 0, scale: 1.07 }, 0)
+        .set("#s6-rule",  { opacity: 0, scaleX: 0 }, 0)
+        .set("#s6-name",  { opacity: 0, y: 22 }, 0)
+        .set("#s6-years", { opacity: 0, y: 16 }, 0)
+        .to("#s6-bed",   { opacity: 1, scale: 1, duration: 1.3, ease: "power2.out" }, 28.4)
+        .to("#s6-logo",  { opacity: 1, scale: 1, duration: 1.05, ease: "power3.out" }, 28.55)
+        .to("#s6-rule",  { opacity: 1, scaleX: 1, duration: 0.85, ease: "power2.out" }, 29.0)
+        .to("#s6-name",  { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 29.2)
+        .to("#s6-years", { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" }, 29.45);
+
+      /* ---- marca persistente (cenas 2–5) ---- */
+      tl.set("#brand", { opacity: 0, y: -14 }, 0)
+        .to("#brand", { opacity: 0.55, y: 0, duration: 0.8, ease: "power2.out" }, 5.6)
+        .to("#brand", { opacity: 0, duration: 0.5, ease: "power2.in" }, 28.2);
+
+      /* ---- fade final ---- */
+      tl.set("#fadeout", { opacity: 0 }, 0)
+        .to("#fadeout", { opacity: 1, duration: 0.9, ease: "power2.in" }, 31.1);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
