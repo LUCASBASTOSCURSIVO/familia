@@ -102,10 +102,12 @@
         justify-content: flex-start; padding-top: 812px; }
       #s1-foto { position: absolute; top: 0; left: 0; width: 1080px; height: 700px;
         object-fit: cover; object-position: 50% 46%; }
-      #s1-foto-veu { position: absolute; top: 0; left: 0; width: 1080px; height: 760px;
+      /* o véu tem de ficar opaco antes de a foto acabar, senão vê-se o corte */
+      #s1-foto-veu { position: absolute; top: 0; left: 0; width: 1080px; height: 700px;
         background:
-          linear-gradient(180deg, rgba(3,16,46,.42) 0%, rgba(3,16,46,.05) 26%,
-            rgba(3,16,46,.30) 62%, rgba(3,16,46,.88) 86%, #03102E 100%);
+          linear-gradient(180deg, rgba(3,16,46,.44) 0%, rgba(3,16,46,.06) 22%,
+            rgba(3,16,46,.24) 48%, rgba(3,16,46,.62) 68%, rgba(3,16,46,.92) 82%,
+            #03102E 93%, #03102E 100%);
       }
       #s1-tag { font-size: 26px; font-weight: 800; letter-spacing: .42em; color: var(--ciano);
         text-transform: uppercase; padding-left: .42em; margin-bottom: 34px; }
