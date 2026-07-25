@@ -1,7 +1,7 @@
-# Portfólio aéreo — Story 1080x1920
+# Portfólio aéreo — 1920x1080 horizontal
 
-Showreel vertical de 28 s em [HyperFrames](https://github.com/heygen-com/hyperframes),
-pronto para Instagram Stories e Reels.
+Showreel horizontal de 28 s em [HyperFrames](https://github.com/heygen-com/hyperframes),
+para site, YouTube ou Vimeo. A filmagem de drone entra sem recorte.
 
 > **Estado: estrutura completa com marcadores.** Os quatro planos em
 > `assets/clipes/` são placeholders coloridos, não filmagem. Substitua-os pelos
@@ -32,16 +32,18 @@ que nenhum fique parado.
    ```bash
    for i in 1 2 3 4; do
      ffmpeg -y -ss 2 -i assets/clipes/clipe-0$i.mp4 -frames:v 1 \
-       -vf "crop=ih*9/16:ih,scale=560:560" assets/clipes/mini-0$i.jpg
+       -vf "scale=640:360" assets/clipes/mini-0$i.jpg
    done
    ```
 
 3. `npm run check` e depois `npm run render`.
 
-**Se a filmagem for horizontal (16:9)**, o `object-fit: cover` recorta as laterais
-automaticamente para encher o vertical. Para escolher que parte do plano fica
-visível, acrescente `object-position` ao vídeo — por exemplo
-`style="object-position: 50% 30%"` para privilegiar a parte de cima.
+**A filmagem 16:9 entra sem recorte.** Se algum clipe tiver outra proporção, o
+`object-fit: cover` ajusta; para escolher que parte fica visível, acrescente
+`object-position` ao vídeo — por exemplo `style="object-position: 50% 30%"`.
+
+**As barras cinematográficas** fecham na abertura e no cartão final, e abrem
+completamente durante o reel, para os planos se verem em ecrã inteiro.
 
 **Para escolher o troço de cada clipe**, use `data-media-start` no `<video>`: o
 valor é o segundo do ficheiro original onde o corte começa.

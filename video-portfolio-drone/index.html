@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="pt-PT" data-resolution="portrait">
+<html lang="pt-PT" data-resolution="landscape">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1080, height=1920" />
+    <meta name="viewport" content="width=1920, height=1080" />
     <script src="assets/js/gsap.min.js"></script>
     <style>
       @font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: block;
@@ -27,7 +27,7 @@
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        margin: 0; width: 1080px; height: 1920px;
+        margin: 0; width: 1920px; height: 1080px;
         overflow: hidden; background: var(--preto);
       }
       body {
@@ -36,84 +36,80 @@
         text-rendering: geometricPrecision;
       }
 
-      .layer { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      .layer { position: absolute; inset: 0; width: 1920px; height: 1080px; }
 
       /* ---------- planos ---------- */
-      .plano { width: 1080px; height: 1920px; object-fit: cover; }
+      .plano { width: 1920px; height: 1080px; object-fit: cover; }
 
-      /* gradientes de leitura sobre a filmagem */
       #veu {
         background:
-          linear-gradient(180deg, rgba(6,7,10,.80) 0%, rgba(6,7,10,.16) 22%,
-            rgba(6,7,10,0) 42%, rgba(6,7,10,0) 56%, rgba(6,7,10,.42) 76%, rgba(6,7,10,.92) 100%);
+          linear-gradient(180deg, rgba(6,7,10,.72) 0%, rgba(6,7,10,.10) 24%,
+            rgba(6,7,10,0) 44%, rgba(6,7,10,0) 58%, rgba(6,7,10,.44) 80%, rgba(6,7,10,.90) 100%);
       }
       #vinheta {
-        background: radial-gradient(128% 62% at 50% 46%, rgba(6,7,10,0) 40%, rgba(6,7,10,.72) 100%);
+        background: radial-gradient(112% 78% at 50% 48%, rgba(6,7,10,0) 42%, rgba(6,7,10,.66) 100%);
       }
       #grao {
-        opacity: .12; mix-blend-mode: overlay;
+        opacity: .11; mix-blend-mode: overlay;
         background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch' seed='9'/><feColorMatrix type='saturate' values='0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
       }
 
-      /* barras cinematográficas */
-      .barra-cine { position: absolute; left: 0; width: 1080px; height: 150px;
+      /* barras cinematográficas — fechadas na abertura e no fim, abertas no reel */
+      .barra-cine { position: absolute; left: 0; width: 1920px; height: 139px;
         background: var(--preto); transform-origin: center; }
-      #barra-topo { top: 0; }
-      #barra-base { bottom: 0; }
+      #barra-topo { top: 0; transform-origin: top center; }
+      #barra-base { bottom: 0; transform-origin: bottom center; }
 
-      /* ---------- corte branco entre planos ---------- */
       .corte { background: #ffffff; }
 
       /* ---------- abertura ---------- */
       #abertura { position: absolute; inset: 0; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; padding: 0 96px; text-align: center; }
-      #ab-conteudo { display: flex; flex-direction: column; align-items: center;
-        width: 100%; }
-      #ab-kicker { font-size: 26px; font-weight: 700; letter-spacing: .48em; color: var(--acento);
-        text-transform: uppercase; padding-left: .48em; margin-bottom: 40px; }
-      .nome-mask { overflow: hidden; display: block; padding: 18px 0; margin: -18px 0; }
-      .nome { font-size: 128px; font-weight: 900; line-height: .94; letter-spacing: -.045em;
+        align-items: center; justify-content: center; padding: 0 140px; text-align: center; }
+      #ab-conteudo { display: flex; flex-direction: column; align-items: center; width: 100%; }
+      #ab-kicker { font-size: 27px; font-weight: 700; letter-spacing: .5em; color: var(--acento);
+        text-transform: uppercase; padding-left: .5em; margin-bottom: 36px; }
+      .nome-mask { overflow: hidden; display: block; padding: 30px 0; margin: -30px 0; }
+      .nome { font-size: 168px; font-weight: 900; line-height: .92; letter-spacing: -.05em;
         color: var(--ink); text-transform: uppercase; white-space: nowrap;
-        text-shadow: 0 30px 90px rgba(0,0,0,.8); }
-      #ab-rule { width: 0; height: 4px; margin: 46px auto 34px; background: var(--acento); }
-      #ab-sub { font-size: 30px; font-weight: 600; letter-spacing: .34em; color: var(--muted);
-        text-transform: uppercase; padding-left: .34em; }
+        text-shadow: 0 30px 90px rgba(0,0,0,.82); }
+      #ab-rule { width: 0; height: 4px; margin: 44px auto 32px; background: var(--acento); }
+      #ab-sub { font-size: 30px; font-weight: 600; letter-spacing: .38em; color: var(--muted);
+        text-transform: uppercase; padding-left: .38em; }
 
       /* ---------- legenda de plano ---------- */
-      .legenda { position: absolute; left: 96px; bottom: 300px; display: flex;
-        align-items: flex-end; gap: 26px; }
-      .leg-num { font-size: 130px; font-weight: 900; line-height: .8; letter-spacing: -.06em;
-        color: var(--acento); text-shadow: 0 20px 60px rgba(0,0,0,.7); }
-      .leg-txt { position: relative; display: flex; flex-direction: column;
-        padding-bottom: 12px; }
-      .leg-tit { display: block; font-size: 44px; font-weight: 800; color: var(--ink);
-        letter-spacing: -.02em; text-shadow: 0 14px 44px rgba(0,0,0,.8); }
-      .leg-sub { display: block; font-size: 25px; font-weight: 600; letter-spacing: .22em;
-        color: var(--muted); text-transform: uppercase; margin-top: 10px; }
-      .leg-risco { position: absolute; left: 0; bottom: -26px; width: 100%; height: 3px;
+      .legenda { position: absolute; left: 140px; bottom: 208px; display: flex;
+        align-items: flex-end; gap: 30px; }
+      .leg-num { font-size: 148px; font-weight: 900; line-height: .78; letter-spacing: -.06em;
+        color: var(--acento); text-shadow: 0 20px 60px rgba(0,0,0,.72); }
+      .leg-txt { position: relative; display: flex; flex-direction: column; padding-bottom: 14px; }
+      .leg-tit { display: block; font-size: 52px; font-weight: 800; color: var(--ink);
+        letter-spacing: -.02em; text-shadow: 0 14px 44px rgba(0,0,0,.82); }
+      .leg-sub { display: block; font-size: 26px; font-weight: 600; letter-spacing: .24em;
+        color: var(--muted); text-transform: uppercase; margin-top: 12px; }
+      .leg-risco { position: absolute; left: 0; bottom: -28px; width: 100%; height: 3px;
         background: linear-gradient(90deg, var(--acento), rgba(242,193,78,0));
         transform-origin: left center; }
 
-      /* ---------- grelha final de planos ---------- */
-      #grelha { position: absolute; inset: 0; display: flex; flex-wrap: wrap;
-        align-content: center; justify-content: center; gap: 18px; padding: 0 96px; }
-      .mini { width: 424px; height: 424px; object-fit: cover; border-radius: 20px;
-        box-shadow: 0 26px 70px rgba(0,0,0,.6); }
+      /* ---------- grelha final ---------- */
+      #grelha { position: absolute; inset: 0; display: flex; align-items: center;
+        justify-content: center; gap: 26px; padding: 0 140px; }
+      .mini { width: 388px; height: 218px; object-fit: cover; border-radius: 16px;
+        box-shadow: 0 26px 70px rgba(0,0,0,.62); }
 
       /* ---------- cartão final ---------- */
       #fim { position: absolute; inset: 0; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; padding: 0 96px; text-align: center; }
-      #fim-nome { font-size: 96px; font-weight: 900; letter-spacing: -.045em; color: var(--ink);
-        text-transform: uppercase; line-height: .96; }
-      #fim-rule { width: 0; height: 4px; margin: 40px auto 32px; background: var(--acento); }
-      #fim-papel { font-size: 30px; font-weight: 600; letter-spacing: .34em; color: var(--muted);
-        text-transform: uppercase; padding-left: .34em; }
-      #fim-contacto { margin-top: 60px; font-size: 44px; font-weight: 800; color: var(--acento); }
-      #fim-nota { margin-top: 18px; font-size: 26px; font-weight: 500; letter-spacing: .2em;
+        align-items: center; justify-content: center; padding: 0 140px; text-align: center; }
+      #fim-nome { font-size: 124px; font-weight: 900; letter-spacing: -.05em; color: var(--ink);
+        text-transform: uppercase; line-height: .94; }
+      #fim-rule { width: 0; height: 4px; margin: 38px auto 30px; background: var(--acento); }
+      #fim-papel { font-size: 29px; font-weight: 600; letter-spacing: .38em; color: var(--muted);
+        text-transform: uppercase; padding-left: .38em; }
+      #fim-contacto { margin-top: 52px; font-size: 46px; font-weight: 800; color: var(--acento); }
+      #fim-nota { margin-top: 16px; font-size: 25px; font-weight: 500; letter-spacing: .22em;
         color: var(--muted); text-transform: uppercase; }
 
       /* ---------- progresso ---------- */
-      #prog-fundo { position: absolute; left: 96px; right: 96px; bottom: 200px; height: 3px;
+      #prog-fundo { position: absolute; left: 140px; right: 140px; bottom: 96px; height: 3px;
         background: rgba(255,255,255,.20); border-radius: 3px; overflow: hidden; }
       #prog { width: 100%; height: 100%; transform-origin: left center; background: var(--acento); }
     </style>
@@ -124,8 +120,8 @@
       data-composition-id="main"
       data-start="0"
       data-duration="28"
-      data-width="1080"
-      data-height="1920"
+      data-width="1920"
+      data-height="1080"
     >
       <!-- ================= PLANOS =================
            Substitua os quatro ficheiros em assets/clipes/ pelos seus.
@@ -149,15 +145,15 @@
       <!-- ================= ABERTURA ================= -->
       <div id="abertura" class="clip" data-start="0" data-duration="7.4" data-track-index="9">
         <div id="ab-conteudo">
-        <div id="ab-kicker">Reel aéreo · 2026</div>
-        <span class="nome-mask"><span class="nome nm">Lucas</span></span>
-        <span class="nome-mask"><span class="nome nm">Bastos</span></span>
-        <div id="ab-rule"></div>
-        <div id="ab-sub">Imagem aérea · Drone</div>
+          <div id="ab-kicker">Reel aéreo · 2026</div>
+          <span class="nome-mask"><span class="nome nm">Lucas</span></span>
+          <span class="nome-mask"><span class="nome nm">Bastos</span></span>
+          <div id="ab-rule"></div>
+          <div id="ab-sub">Imagem aérea · Drone</div>
         </div>
       </div>
 
-      <!-- ================= LEGENDAS DOS PLANOS ================= -->
+      <!-- ================= LEGENDAS ================= -->
       <div id="leg-1" class="legenda clip lg" data-start="7.4" data-duration="4.6" data-track-index="10">
         <span class="leg-num">01</span>
         <span class="leg-txt">
@@ -193,14 +189,16 @@
 
       <!-- ================= CARTÃO FINAL ================= -->
       <div id="fim" class="clip" data-start="24.0" data-duration="4.0" data-track-index="14">
-        <div id="fim-nome">Lucas<br />Bastos</div>
-        <div id="fim-rule"></div>
-        <div id="fim-papel">Imagem aérea · Drone</div>
-        <div id="fim-contacto">@o_seu_instagram</div>
-        <div id="fim-nota">Disponível para projetos</div>
+        <div id="fim-conteudo">
+          <div id="fim-nome">Lucas Bastos</div>
+          <div id="fim-rule"></div>
+          <div id="fim-papel">Imagem aérea · Drone</div>
+          <div id="fim-contacto">@o_seu_instagram</div>
+          <div id="fim-nota">Disponível para projetos</div>
+        </div>
       </div>
 
-      <!-- cortes brancos entre planos -->
+      <!-- cortes brancos -->
       <div id="c1" class="corte clip layer" data-start="7.1"  data-duration="0.5" data-track-index="15"></div>
       <div id="c2" class="corte clip layer" data-start="11.9" data-duration="0.5" data-track-index="16"></div>
       <div id="c3" class="corte clip layer" data-start="16.7" data-duration="0.5" data-track-index="17"></div>
@@ -222,22 +220,22 @@
       tl.set("#prog", { scaleX: 0 }, 0)
         .to("#prog", { scaleX: 1, duration: 28, ease: "none" }, 0);
 
-      /* ---- barras cinematográficas: entram na abertura, saem no reel ---- */
+      /* barras: fechadas na abertura, abrem no reel, fecham no fim */
       tl.set(["#barra-topo", "#barra-base"], { scaleY: 1 }, 0)
-        .to(["#barra-topo", "#barra-base"], { scaleY: 0.34, duration: 1.1, ease: "power3.inOut" }, 6.6)
+        .to(["#barra-topo", "#barra-base"], { scaleY: 0, duration: 1.1, ease: "power3.inOut" }, 6.6)
         .to(["#barra-topo", "#barra-base"], { scaleY: 1, duration: 1.0, ease: "power3.inOut" }, 23.4);
 
-      /* ---- planos: cada um com o seu movimento ---- */
-      tl.set("#p1", { scale: 1.16, x: 0 }, 0)
+      /* cada plano com o seu movimento */
+      tl.set("#p1", { scale: 1.14 }, 0)
         .to("#p1", { scale: 1.02, duration: 7.4, ease: "none" }, 0)
-        .set("#p2", { scale: 1.04, x: 40 }, 0)
-        .to("#p2", { scale: 1.14, x: -30, duration: 5.0, ease: "none" }, 7.2)
-        .set("#p3", { scale: 1.15, y: -30 }, 0)
-        .to("#p3", { scale: 1.03, y: 26, duration: 5.0, ease: "none" }, 12.0)
-        .set("#p4", { scale: 1.03, x: -36 }, 0)
-        .to("#p4", { scale: 1.15, x: 32, duration: 5.2, ease: "none" }, 16.8);
+        .set("#p2", { scale: 1.04, x: 46 }, 0)
+        .to("#p2", { scale: 1.13, x: -34, duration: 5.0, ease: "none" }, 7.2)
+        .set("#p3", { scale: 1.14, y: -26 }, 0)
+        .to("#p3", { scale: 1.03, y: 22, duration: 5.0, ease: "none" }, 12.0)
+        .set("#p4", { scale: 1.03, x: -42 }, 0)
+        .to("#p4", { scale: 1.14, x: 36, duration: 5.2, ease: "none" }, 16.8);
 
-      /* ---- cortes brancos: relâmpago curto ---- */
+      /* cortes brancos */
       [["#c1", 7.1], ["#c2", 11.9], ["#c3", 16.7], ["#c4", 21.6], ["#c5", 23.8]]
         .forEach(([sel, t0]) => {
           tl.set(sel, { opacity: 0 }, 0)
@@ -245,41 +243,41 @@
             .to(sel, { opacity: 0, duration: 0.34, ease: "power2.in" }, t0 + 0.11);
         });
 
-      /* ---- abertura ---- */
+      /* abertura */
       tl.set("#ab-kicker", { opacity: 0, y: -18 }, 0)
-        .set(".nm",        { y: 150, opacity: 0 }, 0)
+        .set(".nm",        { y: 190, opacity: 0 }, 0)
         .set("#ab-rule",   { width: 0 }, 0)
         .set("#ab-sub",    { opacity: 0, y: 20 }, 0)
         .to("#ab-kicker", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.5)
         .to(".nm", { y: 0, opacity: 1, duration: 1.15, stagger: 0.14, ease: "power4.out" }, 0.8)
-        .to("#ab-rule", { width: 340, duration: 0.9, ease: "power2.out" }, 1.9)
+        .to("#ab-rule", { width: 400, duration: 0.9, ease: "power2.out" }, 1.9)
         .to("#ab-sub",  { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 2.15)
         .to("#ab-conteudo", { opacity: 0, duration: 0.4, ease: "power2.in" }, 6.7)
         .set("#ab-conteudo", { opacity: 0 }, 7.1);
 
-      /* ---- legendas dos planos ---- */
+      /* legendas */
       gsap.utils.toArray(".lg").forEach((el, i) => {
         const t0 = [7.4, 12.2, 17.0][i];
-        tl.set(el, { opacity: 0, x: -44 }, 0)
+        tl.set(el, { opacity: 0, x: -50 }, 0)
           .set(el.querySelector(".leg-risco"), { scaleX: 0 }, 0)
           .to(el, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, t0 + 0.25)
           .to(el.querySelector(".leg-risco"), { scaleX: 1, duration: 0.7, ease: "power2.out" }, t0 + 0.5)
           .to(el, { opacity: 0, duration: 0.35, ease: "power2.in" }, t0 + 4.0);
       });
 
-      /* ---- grelha final ---- */
-      tl.set(".mn", { opacity: 0, scale: 0.86, y: 40 }, 0)
+      /* grelha final */
+      tl.set(".mn", { opacity: 0, scale: 0.86, y: 44 }, 0)
         .to(".mn", { opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "back.out(1.8)" }, 21.85)
         .to("#grelha", { opacity: 0, duration: 0.3, ease: "power2.in" }, 24.05);
 
-      /* ---- cartão final ---- */
-      tl.set("#fim-nome",     { opacity: 0, y: 34, scale: 1.04 }, 0)
+      /* cartão final */
+      tl.set("#fim-nome",     { opacity: 0, y: 36, scale: 1.04 }, 0)
         .set("#fim-rule",     { width: 0 }, 0)
         .set("#fim-papel",    { opacity: 0, y: 18 }, 0)
         .set("#fim-contacto", { opacity: 0, y: 24 }, 0)
         .set("#fim-nota",     { opacity: 0, y: 16 }, 0)
         .to("#fim-nome",     { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: "power3.out" }, 24.15)
-        .to("#fim-rule",     { width: 300, duration: 0.8, ease: "power2.out" }, 24.7)
+        .to("#fim-rule",     { width: 340, duration: 0.8, ease: "power2.out" }, 24.7)
         .to("#fim-papel",    { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 24.9)
         .to("#fim-contacto", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 25.25)
         .to("#fim-nota",     { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 25.55);
