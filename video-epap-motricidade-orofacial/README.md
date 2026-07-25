@@ -9,8 +9,8 @@ vertical (1080x1920, 35 s, 30 fps) de apresentação da especialização.
 |---|---|---|
 | 0,0 – 5,6 s | Abertura | Logo EPAP + "Apresenta" |
 | 5,2 – 11,8 s | Título | Especialização em Motricidade Orofacial · 2026 — 2028 · Nova edição |
-| 11,4 – 17,8 s | O programa | 14 unidades curriculares · 240 h · 100 % e-learning |
-| 17,4 – 23,6 s | Horários | Sábado 17h–21h · Domingo 09h–13h |
+| 11,4 – 17,8 s | O programa | 14 unidades curriculares · 240 h · 15 meses |
+| 17,4 – 23,6 s | Forma de ensino | 100 % Online · E-learning |
 | 23,2 – 28,8 s | Datas | Início 10 de outubro de 2026 · Conclusão 09 de janeiro de 2028 |
 | 28,4 – 35,0 s | Encerramento | Logo EPAP + nome + www.institutoepap.com |
 
@@ -33,10 +33,11 @@ uma cena, ajuste também `data-duration` no `#root` e as posições das tweens.
   duplicada com a mesma origem e o mesmo tempo.
 - `assets/fonts/` — Inter (400–900) servida localmente.
 - `assets/js/gsap.min.js` — GSAP local; o CDN não é acessível no ambiente de render.
-- `assets/musica-epap.m4a` — banda sonora original, sintetizada de raiz (ré menor,
-  ~69 BPM, 35 s), normalizada a −14 LUFS. Sem samples nem bibliotecas de terceiros,
-  logo sem restrições de direitos de autor para publicação. O script que a gera está
-  em `musica/compor_musica.py`.
+- `assets/musica-epap.m4a` — banda sonora original, sintetizada de raiz (ré maior,
+  108 BPM, 35 s), normalizada a −14 LUFS. Progressão I–V–vi–IV com pad, baixo,
+  arpejo Karplus-Strong e bateria sintetizada. Sem samples nem bibliotecas de
+  terceiros, logo sem restrições de direitos de autor para publicação. O script que
+  a gera está em `musica/compor_musica.py` — mudar `BPM` ou `prog` gera variações.
 
 ## Comandos
 
