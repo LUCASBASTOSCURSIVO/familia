@@ -162,6 +162,10 @@
         color: var(--ink); text-transform: uppercase; }
       #s6-years { font-size: 28px; font-weight: 600; letter-spacing: .4em; color: var(--epap-lt);
         margin-top: 22px; padding-left: .4em; }
+      #s6-cta { font-size: 23px; font-weight: 600; letter-spacing: .3em; color: var(--muted);
+        text-transform: uppercase; margin-top: 46px; padding-left: .3em; }
+      #s6-site { font-size: 38px; font-weight: 800; letter-spacing: -.005em; color: var(--ink);
+        margin-top: 14px; }
 
       /* ---------- marca persistente + progresso ---------- */
       #brand { position: absolute; top: 108px; left: 96px; width: 190px; }
@@ -177,21 +181,21 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="32"
+      data-duration="35"
       data-width="1080"
       data-height="1920"
     >
       <!-- fundo: animação anatómica em loop contínuo -->
       <video
         id="bg" class="clip layer" muted
-        data-start="0" data-duration="32" data-track-index="0"
+        data-start="0" data-duration="35" data-track-index="0"
         src="assets/bg-anatomia.mp4"
       ></video>
 
-      <div id="tint"  class="clip layer" data-start="0" data-duration="32" data-track-index="1"></div>
-      <div id="scrim"   class="clip layer" data-start="0" data-duration="32" data-track-index="2"></div>
-      <div id="textbed" class="clip layer" data-start="0" data-duration="32" data-track-index="3"></div>
-      <div id="grain"   class="clip layer" data-start="0" data-duration="32" data-track-index="4"></div>
+      <div id="tint"  class="clip layer" data-start="0" data-duration="35" data-track-index="1"></div>
+      <div id="scrim"   class="clip layer" data-start="0" data-duration="35" data-track-index="2"></div>
+      <div id="textbed" class="clip layer" data-start="0" data-duration="35" data-track-index="3"></div>
+      <div id="grain"   class="clip layer" data-start="0" data-duration="35" data-track-index="4"></div>
 
       <!-- ===== CENA 1 — abertura ===== -->
       <div id="s1" class="scene clip" data-start="0" data-duration="5.6" data-track-index="5">
@@ -212,7 +216,7 @@
         <span class="mask"><span class="title-line s2-t">Orofacial</span></span>
         <div id="s2-rule" class="rule"></div>
         <div id="s2-years">2026 — 2028</div>
-        <div id="s2-inst">Formação pós-graduada · EPAP</div>
+        <div id="s2-inst">Nova edição</div>
       </div>
 
       <!-- ===== CENA 3 — números ===== -->
@@ -225,12 +229,12 @@
           <div class="stat-txt">Unidades curriculares<span>Temas 1 a 14</span></div>
         </div>
         <div class="stat s3-item">
-          <div class="stat-num">196<small>h</small></div>
-          <div class="stat-txt">Carga horária total<span>Sessões síncronas + autoestudo</span></div>
+          <div class="stat-num">240<small>h</small></div>
+          <div class="stat-txt">Carga horária total<span>Outubro 2026 a Janeiro 2028</span></div>
         </div>
         <div class="stat s3-item">
           <div class="stat-num">100<small>%</small></div>
-          <div class="stat-txt">Online<span>Zoom + Plataforma EAD EPAP</span></div>
+          <div class="stat-txt">E-learning<span>Formação a distância</span></div>
         </div>
       </div>
 
@@ -248,8 +252,8 @@
           <div class="card-hours">09h — 13h</div>
         </div>
         <div id="s4-note" class="s4-item">
-          Sessões em <b>sala virtual (Zoom)</b>, com atividades de autoestudo na
-          <b>Plataforma EAD EPAP</b>.
+          Formação em <b>e-learning</b>: sessões em sala virtual, com atividades de
+          autoestudo na <b>plataforma EPAP</b>.
         </div>
       </div>
 
@@ -258,21 +262,23 @@
         <div id="s5-head" class="label-row">
           <span class="label-dot"></span><span class="kicker">Início</span>
         </div>
-        <span class="mask"><span id="s5-day">10 e 11</span></span>
+        <span class="mask"><span id="s5-day">10</span></span>
         <div id="s5-month">de outubro de 2026</div>
         <div id="s5-rule" class="rule"></div>
-        <div id="s5-theme-k">Tema 1</div>
-        <div id="s5-theme">Morfofisiologia do Sistema Estomatognático</div>
+        <div id="s5-theme-k">Conclusão</div>
+        <div id="s5-theme">09 de janeiro de 2028</div>
       </div>
 
       <!-- ===== CENA 6 — encerramento ===== -->
-      <div id="s6" class="scene clip" data-start="28.4" data-duration="3.6" data-track-index="10">
+      <div id="s6" class="scene clip" data-start="28.4" data-duration="6.6" data-track-index="10">
         <div class="lockup">
           <div id="s6-bed" class="lockup-bed" data-layout-allow-overflow></div>
           <img id="s6-logo" src="assets/logo-epap-branco-outro.png" alt="EPAP" />
           <div id="s6-rule" class="rule center"></div>
           <div id="s6-name">Especialização em<br />Motricidade Orofacial</div>
           <div id="s6-years">2026 / 2028</div>
+          <div id="s6-cta">Inscrições e informações</div>
+          <div id="s6-site">www.institutoepap.com</div>
         </div>
       </div>
 
@@ -280,11 +286,11 @@
       <img id="brand" class="clip" src="assets/logo-epap-branco-marca.png" alt="EPAP"
            data-start="5.2" data-duration="23.2" data-track-index="11" />
 
-      <div id="progress-wrap" class="clip" data-start="0" data-duration="32" data-track-index="12">
+      <div id="progress-wrap" class="clip" data-start="0" data-duration="35" data-track-index="12">
         <div id="progress"></div>
       </div>
 
-      <div id="fadeout" class="clip layer" data-start="30.8" data-duration="1.2" data-track-index="13"></div>
+      <div id="fadeout" class="clip layer" data-start="33.8" data-duration="1.2" data-track-index="13"></div>
     </div>
 
     <script>
@@ -293,11 +299,11 @@
 
       /* ---- barra de progresso: 0 → 100% ao longo dos 32s ---- */
       tl.set("#progress", { scaleX: 0 }, 0)
-        .to("#progress", { scaleX: 1, duration: 32, ease: "none" }, 0);
+        .to("#progress", { scaleX: 1, duration: 35, ease: "none" }, 0);
 
       /* ---- fundo: zoom lento e contínuo ---- */
       tl.set("#bg", { scale: 1.06 }, 0)
-        .to("#bg", { scale: 1.14, duration: 32, ease: "none" }, 0);
+        .to("#bg", { scale: 1.14, duration: 35, ease: "none" }, 0);
 
       /* ---- leito de texto: discreto na abertura, forte nas cenas de dados ---- */
       tl.set("#textbed", { opacity: 0.30 }, 0)
@@ -367,11 +373,15 @@
         .set("#s6-rule",  { opacity: 0, scaleX: 0 }, 0)
         .set("#s6-name",  { opacity: 0, y: 22 }, 0)
         .set("#s6-years", { opacity: 0, y: 16 }, 0)
+        .set("#s6-cta",   { opacity: 0, y: 16 }, 0)
+        .set("#s6-site",  { opacity: 0, y: 20 }, 0)
         .to("#s6-bed",   { opacity: 1, scale: 1, duration: 1.3, ease: "power2.out" }, 28.4)
         .to("#s6-logo",  { opacity: 1, scale: 1, duration: 1.05, ease: "power3.out" }, 28.55)
         .to("#s6-rule",  { opacity: 1, scaleX: 1, duration: 0.85, ease: "power2.out" }, 29.0)
         .to("#s6-name",  { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 29.2)
-        .to("#s6-years", { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" }, 29.45);
+        .to("#s6-years", { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" }, 29.45)
+        .to("#s6-cta",   { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 29.7)
+        .to("#s6-site",  { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 29.9);
 
       /* ---- marca persistente (cenas 2–5) ---- */
       tl.set("#brand", { opacity: 0, y: -14 }, 0)
@@ -380,7 +390,7 @@
 
       /* ---- fade final ---- */
       tl.set("#fadeout", { opacity: 0 }, 0)
-        .to("#fadeout", { opacity: 1, duration: 0.9, ease: "power2.in" }, 31.1);
+        .to("#fadeout", { opacity: 1, duration: 0.9, ease: "power2.in" }, 34.1);
 
       window.__timelines["main"] = tl;
     </script>
