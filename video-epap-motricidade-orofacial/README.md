@@ -33,6 +33,10 @@ uma cena, ajuste também `data-duration` no `#root` e as posições das tweens.
   duplicada com a mesma origem e o mesmo tempo.
 - `assets/fonts/` — Inter (400–900) servida localmente.
 - `assets/js/gsap.min.js` — GSAP local; o CDN não é acessível no ambiente de render.
+- `assets/musica-epap.m4a` — banda sonora original, sintetizada de raiz (ré menor,
+  ~69 BPM, 35 s), normalizada a −14 LUFS. Sem samples nem bibliotecas de terceiros,
+  logo sem restrições de direitos de autor para publicação. O script que a gera está
+  em `musica/compor_musica.py`.
 
 ## Comandos
 
