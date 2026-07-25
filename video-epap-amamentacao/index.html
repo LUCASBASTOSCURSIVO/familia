@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-PT" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 600; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 900; font-style: normal; font-display: block;
+        src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2"); }
+
+      :root {
+        --navy: #10265F;          /* títulos, como no flyer */
+        --azul: #02339A;          /* faixa e destaques */
+        --azul-cl: #E8EEFB;       /* fundos suaves */
+        --ouro: #B5772F;          /* selo "formação confirmada" */
+        --ouro-cl: #FFFCF5;
+        --papel: #FFFFFF;
+        --texto: #33405E;
+        --suave: #6B7899;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        margin: 0; width: 1080px; height: 1920px;
+        overflow: hidden; background: var(--papel);
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      .layer { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      #fundo { background: var(--papel); }
+
+      .scene {
+        position: absolute; inset: 0; width: 1080px; height: 1920px;
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 0 92px;
+      }
+
+      /* ---------- selo de confirmação ---------- */
+      .selo {
+        display: inline-flex; align-items: center; gap: 24px;
+        background: var(--ouro-cl); border: 3px solid var(--ouro);
+        border-radius: 999px; padding: 24px 44px 24px 28px;
+        box-shadow: 0 18px 44px rgba(181,119,47,.22);
+      }
+      .selo-anel {
+        width: 62px; height: 62px; border-radius: 50%; background: var(--ouro);
+        display: flex; align-items: center; justify-content: center; flex: none;
+      }
+      .selo-txt { font-size: 38px; font-weight: 800; letter-spacing: .06em;
+        color: var(--ouro); text-transform: uppercase; white-space: nowrap; }
+
+      /* ---------- cena 1 ---------- */
+      #s1 { justify-content: flex-start; padding: 0; }
+      #s1-foto {
+        width: 1080px; height: 1020px; object-fit: cover; object-position: 50% 42%;
+        display: block;
+      }
+      #s1-curva {
+        position: absolute; top: 900px; left: -60px; width: 1200px; height: 300px;
+        background: var(--papel); border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      }
+      #s1-corpo { position: absolute; top: 1075px; left: 0; width: 1080px;
+        display: flex; flex-direction: column; align-items: center; text-align: center;
+        padding: 0 92px; }
+      #s1-logo { width: 330px; display: block; }
+      #s1-selo-wrap { margin-top: 54px; }
+      #s1-frase { margin-top: 46px; font-size: 40px; font-weight: 700; line-height: 1.34;
+        color: var(--navy); }
+      #s1-frase b { color: var(--azul); font-weight: 800; }
+
+      /* ---------- cena 2 ---------- */
+      #s2-kicker { font-size: 34px; font-weight: 800; letter-spacing: .22em;
+        color: var(--azul); text-transform: uppercase; }
+      #s2-rule { width: 116px; height: 7px; background: var(--azul);
+        border-radius: 4px; margin: 30px 0 40px; transform-origin: left center; }
+      .t-linha { font-size: 82px; font-weight: 900; line-height: 1.1; letter-spacing: -.03em;
+        color: var(--navy); }
+      .t-linha.leve { font-weight: 700; color: var(--azul); }
+      .mask { overflow: hidden; display: block; padding: 14px 0; margin: -14px 0; }
+      #s2-sub { margin-top: 52px; font-size: 33px; font-weight: 600; line-height: 1.45;
+        color: var(--texto); }
+
+      /* ---------- cena 3 ---------- */
+      #s3-head { font-size: 32px; font-weight: 800; letter-spacing: .22em;
+        color: var(--azul); text-transform: uppercase; margin-bottom: 54px; }
+      .linha {
+        display: flex; align-items: center; gap: 30px;
+        background: var(--azul-cl); border-radius: 22px; padding: 28px 34px;
+      }
+      .linha + .linha { margin-top: 20px; }
+      .icone { width: 74px; height: 74px; border-radius: 50%; background: var(--papel);
+        display: flex; align-items: center; justify-content: center; flex: none; }
+      .icone svg { width: 40px; height: 40px; }
+      .rot { font-size: 25px; font-weight: 600; color: var(--suave); letter-spacing: .04em; }
+      .val { font-size: 37px; font-weight: 800; color: var(--navy); margin-top: 4px;
+        line-height: 1.18; }
+
+      /* ---------- cena 4 ---------- */
+      #s4 { align-items: center; text-align: center; }
+      #s4-kicker { font-size: 30px; font-weight: 800; letter-spacing: .26em;
+        color: var(--azul); text-transform: uppercase; }
+      #s4-foto { width: 470px; display: block; margin: 44px 0 12px; }
+      #s4-rule { width: 92px; height: 6px; background: var(--azul); border-radius: 4px;
+        margin: 18px 0 26px; }
+      #s4-nome { font-size: 50px; font-weight: 900; letter-spacing: -.02em; color: var(--navy); }
+      #s4-papel { font-size: 30px; font-weight: 600; color: var(--suave); margin-top: 10px; }
+      #s4-dest { margin-top: 46px; background: var(--azul-cl); border-radius: 24px;
+        padding: 32px 38px; font-size: 29px; font-weight: 600; line-height: 1.45;
+        color: var(--texto); }
+      #s4-dest b { color: var(--navy); font-weight: 800; }
+
+      /* ---------- cena 5 ---------- */
+      #s5 { align-items: center; text-align: center; justify-content: center; }
+      #s5-logo { width: 400px; display: block; }
+      #s5-selo-wrap { margin-top: 52px; }
+      #s5-cta { margin-top: 56px; font-size: 28px; font-weight: 700; letter-spacing: .26em;
+        color: var(--suave); text-transform: uppercase; padding-left: .26em; }
+      #s5-site { margin-top: 16px; font-size: 46px; font-weight: 900; color: var(--navy);
+        letter-spacing: -.01em; }
+
+      /* ---------- faixa azul inferior ---------- */
+      #faixa {
+        position: absolute; left: 0; bottom: 0; width: 1080px; height: 132px;
+        background: var(--azul); display: flex; align-items: center;
+        justify-content: center; gap: 20px;
+      }
+      #faixa span { font-size: 34px; font-weight: 700; color: #fff; letter-spacing: .02em; }
+      #faixa svg { width: 40px; height: 40px; }
+
+      #progresso-fundo { position: absolute; left: 0; bottom: 132px; width: 1080px;
+        height: 5px; background: var(--azul-cl); }
+      #progresso { width: 100%; height: 100%; background: var(--azul);
+        transform-origin: left center; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="30"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="fundo" class="clip layer" data-start="0" data-duration="30" data-track-index="0"></div>
+
+      <!-- ===== CENA 1 — formação confirmada ===== -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="6.4" data-track-index="1">
+        <img id="s1-foto" src="assets/foto-bebe.jpg" alt="" />
+        <div id="s1-curva" data-layout-allow-overflow></div>
+        <div id="s1-corpo">
+          <img id="s1-logo" src="assets/logo-epap-azul.png" alt="EPAP" />
+          <div id="s1-selo-wrap">
+            <div class="selo">
+              <span class="selo-anel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="3.4"
+                     stroke-linecap="round" stroke-linejoin="round" width="34" height="34">
+                  <path d="M4 12.5 L9.5 18 L20 6.5" />
+                </svg>
+              </span>
+              <span class="selo-txt">Formação confirmada</span>
+            </div>
+          </div>
+          <div id="s1-frase">
+            A formação está <b>confirmada</b><br />e as inscrições seguem abertas.
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CENA 2 — título ===== -->
+      <div id="s2" class="scene clip" data-start="6.0" data-duration="7.0" data-track-index="2">
+        <div id="s2-kicker">Formação B-learning</div>
+        <div id="s2-rule"></div>
+        <span class="mask"><span class="t-linha t2">Avanços na Consultoria</span></span>
+        <span class="mask"><span class="t-linha t2">de Amamentação</span></span>
+        <span class="mask"><span class="t-linha leve t2">do Manejo Clínico</span></span>
+        <span class="mask"><span class="t-linha leve t2">à Disfagia Pediátrica</span></span>
+        <div id="s2-sub">
+          Formadora: Dr.ª Vanessa Felipe de Deus
+        </div>
+      </div>
+
+      <!-- ===== CENA 3 — informações ===== -->
+      <div id="s3" class="scene clip" data-start="12.6" data-duration="7.6" data-track-index="3">
+        <div id="s3-head">Informações</div>
+
+        <div class="linha l3">
+          <span class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#02339A" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" /><path d="M12 7v5.5l3.5 2" />
+            </svg>
+          </span>
+          <span><span class="rot">Carga horária total</span><span class="val">20 horas</span></span>
+        </div>
+
+        <div class="linha l3">
+          <span class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#02339A" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 8.5 12 4l9.5 4.5L12 13z" /><path d="M6 10.7V16c0 1.4 2.7 2.6 6 2.6s6-1.2 6-2.6v-5.3" />
+            </svg>
+          </span>
+          <span><span class="rot">Modalidade</span><span class="val">B-learning · Plataforma Zoom</span></span>
+        </div>
+
+        <div class="linha l3">
+          <span class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#02339A" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2.5" /><path d="M3 10h18M8 3v4M16 3v4" />
+            </svg>
+          </span>
+          <span><span class="rot">Datas online</span><span class="val">14 e 16 de setembro de 2026</span></span>
+        </div>
+
+        <div class="linha l3">
+          <span class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#02339A" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2.5" /><path d="M3 10h18M8 3v4M16 3v4" />
+            </svg>
+          </span>
+          <span><span class="rot">Datas presenciais</span><span class="val">19 e 20 de setembro de 2026</span></span>
+        </div>
+
+        <div class="linha l3">
+          <span class="icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#02339A" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" /><circle cx="12" cy="10" r="2.6" />
+            </svg>
+          </span>
+          <span><span class="rot">Local presencial</span><span class="val">Porto</span></span>
+        </div>
+      </div>
+
+      <!-- ===== CENA 4 — formadora e destinatários ===== -->
+      <div id="s4" class="scene clip" data-start="19.8" data-duration="6.4" data-track-index="4">
+        <div id="s4-kicker">Formadora</div>
+        <img id="s4-foto" src="assets/formadora.png" alt="Dr.ª Vanessa Felipe de Deus" />
+        <div id="s4-rule"></div>
+        <div id="s4-nome">Dr.ª Vanessa Felipe de Deus</div>
+        <div id="s4-papel">Formadora</div>
+        <div id="s4-dest">
+          Destinatários: <b>Terapeutas da Fala</b> e estudantes do 4.º ano da
+          Licenciatura em Terapia da Fala.
+        </div>
+      </div>
+
+      <!-- ===== CENA 5 — fecho ===== -->
+      <div id="s5" class="scene clip" data-start="25.8" data-duration="4.2" data-track-index="5">
+        <img id="s5-logo" src="assets/logo-epap-azul-fecho.png" alt="EPAP" />
+        <div id="s5-selo-wrap">
+          <div class="selo">
+            <span class="selo-anel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="3.4"
+                   stroke-linecap="round" stroke-linejoin="round" width="34" height="34">
+                <path d="M4 12.5 L9.5 18 L20 6.5" />
+              </svg>
+            </span>
+            <span class="selo-txt">Formação confirmada</span>
+          </div>
+        </div>
+        <div id="s5-cta">Inscrições e informações</div>
+        <div id="s5-site">www.institutoepap.com</div>
+      </div>
+
+      <!-- ===== faixa inferior permanente ===== -->
+      <div id="progresso-fundo" class="clip" data-start="0" data-duration="30" data-track-index="6">
+        <div id="progresso"></div>
+      </div>
+      <div id="faixa" class="clip" data-start="0" data-duration="30" data-track-index="7">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9" /><path d="M3 12h18" />
+          <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z" />
+        </svg>
+        <span>www.institutoepap.com</span>
+      </div>
+
+      <!-- banda sonora original -->
+      <audio
+        id="bgm" class="clip" src="assets/musica-epap.m4a"
+        data-start="0" data-duration="30" data-track-index="8" data-volume="0.85"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      /* barra de progresso */
+      tl.set("#progresso", { scaleX: 0 }, 0)
+        .to("#progresso", { scaleX: 1, duration: 30, ease: "none" }, 0);
+
+      /* ===== CENA 1 (0 – 6.4) ===== */
+      tl.set("#s1-foto",      { scale: 1.08, opacity: 0 }, 0)
+        .set("#s1-logo",      { opacity: 0, y: 22 }, 0)
+        .set("#s1-selo-wrap", { opacity: 0, scale: 0.86 }, 0)
+        .set("#s1-frase",     { opacity: 0, y: 24 }, 0)
+        .to("#s1-foto",  { opacity: 1, duration: 0.7, ease: "power2.out" }, 0)
+        .to("#s1-foto",  { scale: 1.16, duration: 6.4, ease: "none" }, 0)
+        .to("#s1-logo",  { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 0.5)
+        .to("#s1-selo-wrap", { opacity: 1, scale: 1, duration: 0.85, ease: "back.out(2.2)" }, 1.0)
+        .to("#s1-frase", { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 1.6)
+        .to("#s1", { opacity: 0, duration: 0.5, ease: "power2.in" }, 5.9);
+
+      /* ===== CENA 2 (6.0 – 13.0) ===== */
+      tl.set("#s2-kicker", { opacity: 0, x: -26 }, 0)
+        .set("#s2-rule",   { scaleX: 0 }, 0)
+        .set(".t2",        { y: 108, opacity: 0 }, 0)
+        .set("#s2-sub",    { opacity: 0, y: 22 }, 0)
+        .to("#s2-kicker", { opacity: 1, x: 0, duration: 0.75, ease: "power3.out" }, 6.25)
+        .to("#s2-rule",   { scaleX: 1, duration: 0.7, ease: "power2.out" }, 6.55)
+        .to(".t2", { y: 0, opacity: 1, duration: 1.0, stagger: 0.13, ease: "power4.out" }, 6.8)
+        .to("#s2-sub", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 8.1)
+        .to("#s2", { opacity: 0, duration: 0.5, ease: "power2.in" }, 12.5);
+
+      /* ===== CENA 3 (12.6 – 20.2) ===== */
+      tl.set("#s3-head", { opacity: 0, x: -24 }, 0)
+        .set(".l3",      { opacity: 0, x: -44 }, 0)
+        .to("#s3-head", { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 12.8)
+        .to(".l3", { opacity: 1, x: 0, duration: 0.8, stagger: 0.22, ease: "power3.out" }, 13.1)
+        .to("#s3", { opacity: 0, duration: 0.5, ease: "power2.in" }, 19.7);
+
+      /* ===== CENA 4 (19.8 – 26.2) ===== */
+      tl.set("#s4-kicker", { opacity: 0, y: -18 }, 0)
+        .set("#s4-foto",   { opacity: 0, scale: 0.9 }, 0)
+        .set("#s4-rule",   { scaleX: 0 }, 0)
+        .set("#s4-nome",   { opacity: 0, y: 22 }, 0)
+        .set("#s4-papel",  { opacity: 0, y: 16 }, 0)
+        .set("#s4-dest",   { opacity: 0, y: 26 }, 0)
+        .to("#s4-kicker", { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 20.0)
+        .to("#s4-foto",   { opacity: 1, scale: 1, duration: 1.0, ease: "power3.out" }, 20.2)
+        .to("#s4-rule",   { scaleX: 1, duration: 0.6, ease: "power2.out" }, 20.9)
+        .to("#s4-nome",   { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 21.05)
+        .to("#s4-papel",  { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 21.3)
+        .to("#s4-dest",   { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 21.6)
+        .to("#s4", { opacity: 0, duration: 0.5, ease: "power2.in" }, 25.7);
+
+      /* ===== CENA 5 (25.8 – 30.0) ===== */
+      tl.set("#s5-logo",      { opacity: 0, y: 22 }, 0)
+        .set("#s5-selo-wrap", { opacity: 0, scale: 0.88 }, 0)
+        .set("#s5-cta",       { opacity: 0, y: 16 }, 0)
+        .set("#s5-site",      { opacity: 0, y: 20 }, 0)
+        .to("#s5-logo",      { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 25.95)
+        .to("#s5-selo-wrap", { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(2.2)" }, 26.35)
+        .to("#s5-cta",       { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 26.85)
+        .to("#s5-site",      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 27.1);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
