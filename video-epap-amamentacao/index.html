@@ -98,12 +98,20 @@
       .selo-caixa { position: relative; display: inline-block; }
 
       /* ---------- cena 1 ---------- */
-      #s1 { align-items: center; text-align: center; }
+      #s1 { align-items: center; text-align: center;
+        justify-content: flex-start; padding-top: 812px; }
+      #s1-foto { position: absolute; top: 0; left: 0; width: 1080px; height: 700px;
+        object-fit: cover; object-position: 50% 46%; }
+      #s1-foto-veu { position: absolute; top: 0; left: 0; width: 1080px; height: 760px;
+        background:
+          linear-gradient(180deg, rgba(3,16,46,.42) 0%, rgba(3,16,46,.05) 26%,
+            rgba(3,16,46,.30) 62%, rgba(3,16,46,.88) 86%, #03102E 100%);
+      }
       #s1-tag { font-size: 26px; font-weight: 800; letter-spacing: .42em; color: var(--ciano);
-        text-transform: uppercase; padding-left: .42em; margin-bottom: 40px; }
-      #s1-logo { width: 400px; display: block; }
-      #s1-selo { margin-top: 66px; }
-      #s1-tit { margin-top: 62px; font-size: 58px; font-weight: 900; line-height: 1.14;
+        text-transform: uppercase; padding-left: .42em; margin-bottom: 34px; }
+      #s1-logo { width: 380px; display: block; }
+      #s1-selo { margin-top: 54px; }
+      #s1-tit { margin-top: 52px; font-size: 54px; font-weight: 900; line-height: 1.14;
         letter-spacing: -.025em; color: var(--branco); }
       #s1-tit .kw { display: inline-block; }
       #s1-tit .ac { color: var(--ciano); }
@@ -125,6 +133,21 @@
       #s2-cartao img { width: 726px; display: block; }
 
       /* ---------- cena 3 — informações ---------- */
+      /* faixa de homenagem à formadora, presente durante as informações */
+      #s3-formadora { display: flex; align-items: center; gap: 30px; margin-bottom: 44px;
+        background: var(--vidro); border: 1px solid var(--vidro-b);
+        border-radius: 26px; padding: 22px 34px 22px 24px; }
+      #s3-medalha { position: relative; width: 128px; height: 128px; flex: none;
+        display: flex; align-items: center; justify-content: center; }
+      #s3-medalha img { height: 128px; width: auto; display: block; }
+      #s3-anel { position: absolute; width: 128px; height: 128px; }
+      #s3-anel circle { fill: none; stroke: rgba(111,216,255,.6); stroke-width: 3;
+        stroke-dasharray: 22 14; }
+      #s3-fnome { display: block; font-size: 34px; font-weight: 900; color: var(--branco);
+        line-height: 1.2; }
+      #s3-fpapel { display: block; font-size: 24px; font-weight: 700; letter-spacing: .22em;
+        color: var(--ciano); text-transform: uppercase; margin-top: 8px; }
+
       #s3-head { display: flex; align-items: center; gap: 22px; margin-bottom: 50px; }
       #s3-head .kicker { font-size: 30px; font-weight: 800; letter-spacing: .3em;
         color: var(--azul-cl); text-transform: uppercase; }
@@ -219,6 +242,8 @@
 
       <!-- ===== CENA 1 ===== -->
       <div id="s1" class="scene clip" data-start="0" data-duration="5.8" data-track-index="7">
+        <img id="s1-foto" src="assets/foto-amamentacao.jpg" alt="" />
+        <div id="s1-foto-veu"></div>
         <div id="s1-tag">Instituto EPAP</div>
         <img id="s1-logo" src="assets/logo-epap-branco.png" alt="EPAP" />
         <div id="s1-selo">
@@ -256,6 +281,16 @@
 
       <!-- ===== CENA 3 — informações ===== -->
       <div id="s3" class="scene clip" data-start="12.0" data-duration="7.4" data-track-index="9">
+        <div id="s3-formadora">
+          <span id="s3-medalha">
+            <svg id="s3-anel" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" /></svg>
+            <img src="assets/formadora-medalha.png" alt="Dr.ª Vanessa Felipe de Deus" />
+          </span>
+          <span>
+            <span id="s3-fnome">Dr.ª Vanessa Felipe de Deus</span>
+            <span id="s3-fpapel">Formadora</span>
+          </span>
+        </div>
         <div id="s3-head">
           <span class="kicker">Informações</span><span class="barra"></span>
         </div>
@@ -406,11 +441,14 @@
       });
 
       /* ===== CENA 1 (0 – 5.8) ===== */
-      tl.set("#s1-tag",   { opacity: 0, y: -16 }, 0)
+      tl.set("#s1-foto",  { opacity: 0, scale: 1.14 }, 0)
+        .set("#s1-tag",   { opacity: 0, y: -16 }, 0)
         .set("#s1-logo",  { opacity: 0, y: 26, scale: 1.06 }, 0)
         .set("#s1-selo",  { opacity: 0, scale: 0.82 }, 0)
         .set("#s1-tit .kw", { opacity: 0, y: 44 }, 0)
         .set("#s1-linha", { width: 0 }, 0)
+        .to("#s1-foto", { opacity: 1, duration: 1.0, ease: "power2.out" }, 0)
+        .to("#s1-foto", { scale: 1.02, duration: 5.8, ease: "none" }, 0)
         .to("#s1-tag",  { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.3)
         .to("#s1-logo", { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: "power3.out" }, 0.5)
         .to("#s1-selo", { opacity: 1, scale: 1, duration: 0.85, ease: "back.out(2.6)" }, 1.15)
@@ -429,14 +467,18 @@
         .to("#s2", { opacity: 0, duration: 0.45, ease: "power2.in" }, 11.95);
 
       /* ===== CENA 3 (12.0 – 19.4) ===== */
-      tl.set("#s3-head .kicker", { opacity: 0, x: -22 }, 0)
+      tl.set("#s3-formadora",    { opacity: 0, y: -26 }, 0)
+        .set("#s3-anel",         { rotation: 0 }, 0)
+        .set("#s3-head .kicker", { opacity: 0, x: -22 }, 0)
         .set("#s3-head .barra",  { scaleX: 0 }, 0)
         .set(".l3",     { opacity: 0, x: -50 }, 0)
         .set(".risco",  { scaleY: 0 }, 0)
-        .to("#s3-head .kicker", { opacity: 1, x: 0, duration: 0.65, ease: "power3.out" }, 12.2)
-        .to("#s3-head .barra",  { scaleX: 1, duration: 0.8, ease: "power2.out" }, 12.35)
-        .to(".l3",    { opacity: 1, x: 0, duration: 0.75, stagger: 0.2, ease: "power3.out" }, 12.5)
-        .to(".risco", { scaleY: 1, duration: 0.55, stagger: 0.2, ease: "power2.out" }, 12.72)
+        .to("#s3-formadora", { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 12.15)
+        .to("#s3-anel", { rotation: 260, duration: 7.0, ease: "none" }, 12.2)
+        .to("#s3-head .kicker", { opacity: 1, x: 0, duration: 0.65, ease: "power3.out" }, 12.6)
+        .to("#s3-head .barra",  { scaleX: 1, duration: 0.8, ease: "power2.out" }, 12.75)
+        .to(".l3",    { opacity: 1, x: 0, duration: 0.75, stagger: 0.18, ease: "power3.out" }, 12.9)
+        .to(".risco", { scaleY: 1, duration: 0.55, stagger: 0.18, ease: "power2.out" }, 13.1)
         .to("#s3", { opacity: 0, duration: 0.45, ease: "power2.in" }, 18.95);
 
       /* ===== CENA 4 (19.0 – 25.2) ===== */
