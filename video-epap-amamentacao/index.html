@@ -111,15 +111,15 @@
       /* ---------- cena 2 ---------- */
       #s2-kicker { margin-bottom: 30px; }
       #s2-kicker .kicker { font-size: 40px; font-weight: 800; letter-spacing: .16em; }
+      /* corpo aferido pelas métricas da Inter 900: a linha mais larga
+         ("DO MANEJO CLÍNICO") mede 849px nos 888px disponíveis */
       .title-line {
-        font-size: 92px; font-weight: 900; line-height: .98; letter-spacing: -.035em;
+        font-size: 84px; font-weight: 900; line-height: 1.0; letter-spacing: -.035em;
         color: var(--ink); text-transform: uppercase; white-space: nowrap;
         text-shadow: 0 24px 70px rgba(0,0,0,.72);
       }
-      #s2-rule { width: 100%; margin: 46px 0 34px; }
+      #s2-rule { width: 100%; margin: 42px 0 32px; }
       #s2-data { font-size: 44px; font-weight: 800; letter-spacing: .18em; color: var(--ink); }
-      #s2-inst { font-size: 25px; font-weight: 500; letter-spacing: .2em; color: var(--muted);
-        text-transform: uppercase; margin-top: 18px; }
 
       /* ---------- cena 3 ---------- */
       #s3-head { margin-bottom: 74px; }
@@ -164,7 +164,7 @@
       #s6 { align-items: center; text-align: center; }
       #s6-logo { width: 440px; display: block; filter: drop-shadow(0 18px 60px rgba(0,0,0,.65)); }
       #s6-rule { width: 360px; height: 2px; margin: 44px 0 30px; }
-      #s6-name { font-size: 42px; font-weight: 800; line-height: 1.26; letter-spacing: -.01em;
+      #s6-name { font-size: 32px; font-weight: 800; line-height: 1.32; letter-spacing: -.01em;
         color: var(--ink); text-transform: uppercase; }
       #s6-selo { margin-top: 34px; }
       #s6-cta { margin-top: 44px; font-size: 23px; font-weight: 600; letter-spacing: .3em;
@@ -223,11 +223,13 @@
           <span class="label-dot"></span><span class="kicker">Formação B-learning</span>
         </div>
         <span class="mask"><span class="title-line s2-t">Avanços na</span></span>
-        <span class="mask"><span class="title-line s2-t">Consultoria</span></span>
-        <span class="mask"><span class="title-line s2-t">de Amamentação</span></span>
+        <span class="mask"><span class="title-line s2-t">Consultoria de</span></span>
+        <span class="mask"><span class="title-line s2-t">Amamentação:</span></span>
+        <span class="mask"><span class="title-line s2-t">do Manejo Clínico</span></span>
+        <span class="mask"><span class="title-line s2-t">à Disfagia</span></span>
+        <span class="mask"><span class="title-line s2-t">Pediátrica</span></span>
         <div id="s2-rule" class="rule"></div>
         <div id="s2-data">Setembro de 2026</div>
-        <div id="s2-inst">Do manejo clínico à disfagia pediátrica</div>
       </div>
 
       <!-- ===== CENA 3 — o programa ===== -->
@@ -288,7 +290,7 @@
           <div id="s6-bed" class="lockup-bed" data-layout-allow-overflow></div>
           <img id="s6-logo" src="assets/logo-epap-branco-fecho.png" alt="EPAP" />
           <div id="s6-rule" class="rule center"></div>
-          <div id="s6-name">Avanços na Consultoria<br />de Amamentação</div>
+          <div id="s6-name">Avanços na Consultoria de Amamentação:<br />do Manejo Clínico à Disfagia Pediátrica</div>
           <div id="s6-selo">
             <span class="selo">
               <span class="selo-anel">
@@ -355,12 +357,10 @@
         .set(".s2-t",      { y: 118, opacity: 0 }, 0)
         .set("#s2-rule",   { scaleX: 0, opacity: 0 }, 0)
         .set("#s2-data",   { opacity: 0, y: 26 }, 0)
-        .set("#s2-inst",   { opacity: 0, y: 18 }, 0)
         .to("#s2-kicker", { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, 5.45)
-        .to(".s2-t", { y: 0, opacity: 1, duration: 1.1, stagger: 0.13, ease: "power4.out" }, 5.7)
-        .to("#s2-rule", { scaleX: 1, opacity: 1, duration: 1.0, ease: "power2.out" }, 6.6)
-        .to("#s2-data", { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, 6.9)
-        .to("#s2-inst", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 7.2)
+        .to(".s2-t", { y: 0, opacity: 1, duration: 1.0, stagger: 0.12, ease: "power4.out" }, 5.6)
+        .to("#s2-rule", { scaleX: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 7.4)
+        .to("#s2-data", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 7.7)
         .to("#s2", { opacity: 0, duration: 0.55, ease: "power2.in" }, 11.2);
 
       /* ===== CENA 3 (11.4 – 17.8) ===== */
