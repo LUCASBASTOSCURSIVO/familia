@@ -13,7 +13,7 @@ vídeo da Especialização em Motricidade Orofacial.
 | 11,4 – 17,8 s | O programa | 20 h · 4 dias · Porto |
 | 17,4 – 23,6 s | Forma de ensino | Online (Zoom) 13 e 15 Out. · Presencial (Porto) 31 Out. e 01 Nov. |
 | 23,2 – 28,8 s | Formadora | Prof.ª Doutora Carolina Silvério · destinatários |
-| 28,4 – 35,0 s | Encerramento | Logo · selo · Últimas 5 vagas · www.institutoepap.com |
+| 28,4 – 35,0 s | Encerramento | Logo · selo · www.institutoepap.com |
 
 ## Como editar
 
@@ -40,8 +40,9 @@ o título dispõe de 888 px entre margens e os cartões de 796 px internos.
 
 ## Dados sensíveis ao tempo
 
-**"Últimas 5 vagas"** no encerramento vem do flyer e envelhece: quando as vagas
-esgotarem ou mudarem, é uma linha a corrigir em `#s6-cta`.
+O flyer traz "Últimas 5 vagas", mas essa informação foi deliberadamente deixada
+de fora do vídeo: envelhece mal e obrigaria a voltar a renderizar quando o número
+mudasse.
 
 **"4 dias de formação"** é a contagem das quatro datas do flyer (13, 15 e 31 de
 outubro e 1 de novembro).
