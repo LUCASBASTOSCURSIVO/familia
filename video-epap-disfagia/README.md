@@ -27,8 +27,12 @@ o título dispõe de 888 px entre margens e os cartões de 796 px internos.
 
 ## Assets
 
-- `assets/bg-anatomia.mp4` — fundo anatómico em loop ping-pong contínuo, o mesmo do
-  vídeo da Especialização em MOF.
+- `assets/fundo-disfagia.mp4` — fundo de 36 s composto a partir do clipe clínico de
+  5 s (criança em cadeira de alimentação com terapeuta). O clipe é escalado a
+  1080x602, transformado em loop ping-pong contínuo e sobreposto a um gradiente azul
+  da marca com uma máscara alfa que o dissolve a partir dos 52 % da sua altura. Assim
+  a cena está presente em todas as cenas sem esticar a filmagem horizontal para
+  vertical.
 - `assets/logo-epap-branco*.png` — logo EPAP a branco, fundo removido por limiar de
   luminância. Três cópias com nomes distintos porque o compilador avisa quando
   encontra media duplicada com a mesma origem e o mesmo tempo.
