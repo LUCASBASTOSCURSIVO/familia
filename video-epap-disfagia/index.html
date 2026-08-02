@@ -19,8 +19,13 @@
         src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2"); }
 
       :root {
-        --epap: #394893;
-        --epap-lt: #A6B5F2;
+        /* Paleta da Disfagia Pediátrica — turquesa clínico.
+           Cada formação tem o seu acento para não se confundirem no feed;
+           a estrutura e a tipografia mantêm-se, é o que as liga como série. */
+        --epap: #14606B;
+        --epap-rgb: 20, 96, 107;
+        --epap-lt: #6FD2DC;
+        --epap-lt-rgb: 111, 210, 220;
         --ink: #ffffff;
         --muted: rgba(255, 255, 255, 0.74);
       }
@@ -48,8 +53,8 @@
           radial-gradient(120% 62% at 50% 46%, rgba(5,7,13,0) 38%, rgba(5,7,13,.72) 100%);
       }
       #tint {
-        background: linear-gradient(160deg, rgba(57,72,147,.30) 0%, rgba(57,72,147,0) 42%,
-                                            rgba(57,72,147,0) 62%, rgba(57,72,147,.34) 100%);
+        background: linear-gradient(160deg, rgba(var(--epap-rgb),.30) 0%, rgba(var(--epap-rgb),0) 42%,
+                                            rgba(var(--epap-rgb),0) 62%, rgba(var(--epap-rgb),.34) 100%);
         mix-blend-mode: screen;
       }
       /* leito escuro por trás do texto — opacidade sobe nas cenas informativas */
@@ -76,15 +81,15 @@
       }
       .label-row { display: flex; align-items: center; gap: 22px; }
       .label-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--epap-lt);
-        box-shadow: 0 0 22px 6px rgba(143,162,238,.55); flex: none; }
+        box-shadow: 0 0 22px 6px rgba(var(--epap-lt-rgb),.55); flex: none; }
 
       /* folga vertical para não cortar ascendentes/descendentes durante o reveal */
       .mask { overflow: hidden; display: block; padding: 20px 0; margin: -20px 0; }
 
-      .rule { height: 3px; background: linear-gradient(90deg, var(--epap-lt), rgba(143,162,238,0));
+      .rule { height: 3px; background: linear-gradient(90deg, var(--epap-lt), rgba(var(--epap-lt-rgb),0));
         transform-origin: left center; }
       .rule.center { transform-origin: center;
-        background: linear-gradient(90deg, rgba(143,162,238,0), var(--epap-lt), rgba(143,162,238,0)); }
+        background: linear-gradient(90deg, rgba(var(--epap-lt-rgb),0), var(--epap-lt), rgba(var(--epap-lt-rgb),0)); }
 
       /* leito radial localizado atrás dos lockups centrados (cenas 1 e 6) */
       .lockup { position: relative; display: flex; flex-direction: column;
@@ -130,7 +135,7 @@
       /* ---------- cena 3 ---------- */
       #s3-head { margin-bottom: 74px; }
       .stat { display: flex; align-items: baseline; gap: 30px; padding: 30px 0 30px 34px;
-        border-left: 4px solid rgba(143,162,238,.42); }
+        border-left: 4px solid rgba(var(--epap-lt-rgb),.42); }
       .stat + .stat { margin-top: 30px; }
       .stat-num { font-size: 104px; font-weight: 900; letter-spacing: -.04em; color: var(--ink);
         line-height: 1; min-width: 250px; text-shadow: 0 16px 44px rgba(0,0,0,.6); }
@@ -142,8 +147,8 @@
       /* ---------- cena 4 ---------- */
       #s4-head { margin-bottom: 62px; }
       .card {
-        background: linear-gradient(150deg, rgba(57,72,147,.52), rgba(12,16,34,.62));
-        border: 1px solid rgba(143,162,238,.34);
+        background: linear-gradient(150deg, rgba(var(--epap-rgb),.52), rgba(12,16,34,.62));
+        border: 1px solid rgba(var(--epap-lt-rgb),.34);
         border-radius: 26px; padding: 44px 46px;
         box-shadow: 0 26px 70px rgba(0,0,0,.5);
       }
