@@ -1,43 +1,50 @@
-# Vídeo — Especialização em Motricidade Orofacial (EPAP) 2026/2028
+# Vídeo — Disfagia Pediátrica: Avaliação e Intervenção (EPAP)
 
 Composição [HyperFrames](https://github.com/heygen-com/hyperframes) que gera um vídeo
-vertical (1080x1920, 35 s, 30 fps) de apresentação da especialização.
+vertical (1080x1920, 32 s, 30 fps) de anúncio da formação, no mesmo sistema visual do
+vídeo da Especialização em Motricidade Orofacial.
 
 ## Estrutura do vídeo
 
 | Tempo | Cena | Conteúdo |
 |---|---|---|
-| 0,0 – 5,6 s | Abertura | Logo EPAP + "Apresenta" |
-| 5,2 – 11,8 s | Título | Especialização em Motricidade Orofacial · 2026 — 2028 · Nova edição |
-| 11,4 – 17,8 s | O programa | 14 unidades curriculares · 240 h · 15 meses |
-| 17,4 – 23,6 s | Forma de ensino | 100 % Online · E-learning |
-| 23,2 – 28,8 s | Datas | Início 10 de outubro de 2026 · Conclusão 09 de janeiro de 2028 |
-| 28,4 – 35,0 s | Encerramento | Logo EPAP + nome + www.institutoepap.com |
+| 0,0 – 5,6 s | Abertura | Logo EPAP · "Apresenta" · selo Formação confirmada |
+| 5,2 – 11,8 s | Título | Disfagia Pediátrica · Avaliação e Intervenção |
+| 11,4 – 17,8 s | O programa | 20 h · 4 dias · Porto |
+| 17,4 – 23,6 s | Forma de ensino | Online (Zoom) 13 e 15 Out. · Presencial (Porto) 31 Out. e 01 Nov. |
+| 23,2 – 28,8 s | Formadora | Prof.ª Doutora Carolina Silvério · destinatários |
+| 28,4 – 35,0 s | Encerramento | Logo · selo · Últimas 5 vagas · www.institutoepap.com |
 
 ## Como editar
 
 Todo o conteúdo está em `index.html`. Cada cena é um `<div class="scene clip">` com
-`data-start` / `data-duration` / `data-track-index`, e as animações vivem na timeline
-GSAP no final do ficheiro (posições absolutas em segundos).
+`data-start` / `data-duration` / `data-track-index`; as animações vivem na timeline
+GSAP no fim do ficheiro, com posições absolutas em segundos.
 
-Para alterar textos, basta editar o HTML da cena correspondente. Se mudar a duração de
-uma cena, ajuste também `data-duration` no `#root` e as posições das tweens.
+Os corpos de letra dos blocos críticos foram aferidos com as métricas reais da Inter
+(via fontTools), não estimados. Se alterar textos longos, vale a pena voltar a medir:
+o título dispõe de 888 px entre margens e os cartões de 796 px internos.
 
 ## Assets
 
-- `assets/bg-anatomia.mp4` — fundo anatómico em loop ping-pong contínuo (45 s),
-  derivado do vídeo original 576x1024 e reescalado para 1080x1920.
-- `assets/logo-epap-*.png` — logo EPAP a branco, com fundo removido por limiar de
-  luminância. Existem três cópias com nomes distintos (abertura, marca persistente e
-  encerramento) porque o compilador do HyperFrames avisa quando encontra media
-  duplicada com a mesma origem e o mesmo tempo.
+- `assets/bg-anatomia.mp4` — fundo anatómico em loop ping-pong contínuo, o mesmo do
+  vídeo da Especialização em MOF.
+- `assets/logo-epap-branco*.png` — logo EPAP a branco, fundo removido por limiar de
+  luminância. Três cópias com nomes distintos porque o compilador avisa quando
+  encontra media duplicada com a mesma origem e o mesmo tempo.
 - `assets/fonts/` — Inter (400–900) servida localmente.
 - `assets/js/gsap.min.js` — GSAP local; o CDN não é acessível no ambiente de render.
-- `assets/musica-epap.m4a` — banda sonora original, sintetizada de raiz (ré maior,
-  108 BPM, 35 s), normalizada a −14 LUFS. Progressão I–V–vi–IV com pad, baixo,
-  arpejo Karplus-Strong e bateria sintetizada. Sem samples nem bibliotecas de
-  terceiros, logo sem restrições de direitos de autor para publicação. O script que
-  a gera está em `musica/compor_musica.py` — mudar `BPM` ou `prog` gera variações.
+- `assets/musica-epap.m4a` — banda sonora original (ré maior, 108 BPM, 35 s),
+  normalizada a −14 LUFS. Sem samples de terceiros. Gerada por
+  `musica/compor_musica.py`.
+
+## Dados sensíveis ao tempo
+
+**"Últimas 5 vagas"** no encerramento vem do flyer e envelhece: quando as vagas
+esgotarem ou mudarem, é uma linha a corrigir em `#s6-cta`.
+
+**"4 dias de formação"** é a contagem das quatro datas do flyer (13, 15 e 31 de
+outubro e 1 de novembro).
 
 ## Comandos
 
@@ -48,12 +55,3 @@ npm run render   # gera o MP4 em renders/
 ```
 
 O render exige `ffmpeg` e `ffprobe` no PATH e Node.js 22+.
-
-## Dados de origem
-
-A estrutura dos 14 temas e os horários das sessões vêm do cronograma MOF 2026/2028.
-
-Os restantes dados foram indicados pela coordenação e substituem o que constava do
-cronograma: carga horária total de **240 h**, formato **e-learning**, início a **10 de
-outubro de 2026**, conclusão a **09 de janeiro de 2028**, e inscrições em
-**www.institutoepap.com**.
