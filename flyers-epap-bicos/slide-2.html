@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face { font-family: "Manrope"; font-weight: 400; font-display: block;
+        src: url("assets/fonts/manrope-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 500; font-display: block;
+        src: url("assets/fonts/manrope-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 600; font-display: block;
+        src: url("assets/fonts/manrope-latin-600-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 700; font-display: block;
+        src: url("assets/fonts/manrope-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Manrope"; font-weight: 800; font-display: block;
+        src: url("assets/fonts/manrope-latin-800-normal.woff2") format("woff2"); }
+
+      :root {
+        --azul-escuro: #0E2350;
+        --azul: #1F4BA8;
+        --azul-claro: #E8EFFB;
+        --papel: #FBFAF9;
+        --bege: #E7DCCB;
+        --texto: #46536C;
+        --linha: #DCE3EF;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1350px; overflow: hidden;
+        background: var(--papel);
+        font-family: "Manrope", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      .folha { position: relative; width: 1080px; height: 1350px; padding: 76px 78px 0; }
+      .fita { position: absolute; top: 0; left: 0; width: 1080px; height: 10px;
+        background: linear-gradient(90deg, var(--azul-escuro) 0%, var(--azul) 46%, var(--bege) 100%); }
+
+      .topo { display: flex; align-items: flex-start; justify-content: space-between; }
+      .logo { width: 208px; display: block; }
+      .etiquetas { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; padding-top: 6px; }
+      .etq { font-size: 17px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; }
+      .etq-1 { color: var(--azul); }
+      .etq-2 { color: var(--texto); background: var(--azul-claro);
+        padding: 9px 18px; border-radius: 4px; letter-spacing: .2em; font-size: 15px; }
+
+      .risco { height: 1px; background: var(--linha); margin: 46px 0 0; }
+
+      /* ---------- cabeçalho da página ---------- */
+      .cabeca { margin-top: 54px; }
+      .cab-rot { font-size: 19px; font-weight: 800; letter-spacing: .3em; text-transform: uppercase;
+        color: var(--azul); }
+      .cab-tit { margin-top: 20px; font-size: 35px; font-weight: 500; line-height: 1.3;
+        letter-spacing: -.012em; color: var(--azul-escuro); max-width: 800px; }
+      .cab-tit b { font-weight: 800; }
+
+      /* ---------- blocos de informação ---------- */
+      .bloco { margin-top: 76px; padding-left: 28px; border-left: 3px solid var(--azul-claro);
+        position: relative; }
+      .bloco::before { content: ""; position: absolute; left: -3px; top: 0; width: 3px;
+        height: 68px; background: var(--azul); }
+      .b-topo { display: flex; align-items: center; gap: 16px; }
+      .b-icone { width: 46px; height: 46px; flex: none; display: flex;
+        align-items: center; justify-content: center; }
+      .b-icone svg { width: 34px; height: 34px; }
+      .b-rot { font-size: 27px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase;
+        color: var(--azul-escuro); }
+
+      .b-corpo { margin-top: 24px; padding-left: 62px; }
+      .b-data { font-size: 43px; font-weight: 800; letter-spacing: -.02em; color: var(--azul-escuro); }
+      .b-horas { display: flex; gap: 18px; align-items: baseline; margin-top: 10px; flex-wrap: wrap; }
+      .b-hora { font-size: 33px; font-weight: 700; color: var(--azul); letter-spacing: -.01em; }
+      .b-nota { font-size: 21px; font-weight: 500; color: var(--texto); margin-top: 16px; }
+      .b-morada { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--linha); }
+      .b-morada .casa { font-size: 24px; font-weight: 700; color: var(--azul-escuro); }
+      .b-morada .rua { font-size: 21px; font-weight: 500; color: var(--texto); margin-top: 6px;
+        line-height: 1.5; }
+
+      /* ---------- rodapé ---------- */
+      .rodape { position: absolute; left: 78px; bottom: 74px; width: 924px;
+        display: flex; align-items: center; gap: 18px;
+        border-top: 1px solid var(--linha); padding-top: 24px; }
+      .rodape .ponto { width: 8px; height: 8px; background: var(--bege); border-radius: 50%; flex: none; }
+      .rodape span { font-size: 21px; font-weight: 600; color: var(--texto); letter-spacing: .01em; }
+    </style>
+  </head>
+  <body>
+    <div class="folha">
+      <div class="fita"></div>
+
+      <div class="topo">
+        <img class="logo" src="assets/logo-epap-azul.png" alt="EPAP" />
+        <div class="etiquetas">
+          <span class="etq etq-1">Formação</span>
+          <span class="etq etq-2">Online + Presencial</span>
+        </div>
+      </div>
+
+      <div class="risco"></div>
+
+      <div class="cabeca">
+        <div class="cab-rot">Datas e modalidade</div>
+        <div class="cab-tit">
+          Bicos artificiais na abordagem clínica da
+          <b>disfunção oral no lactente</b>
+        </div>
+      </div>
+
+      <!-- ONLINE -->
+      <div class="bloco">
+        <div class="b-topo">
+          <span class="b-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1F4BA8" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2.5" y="4" width="19" height="13" rx="1.8" />
+              <path d="M9 20.5h6M12 17v3.5" />
+            </svg>
+          </span>
+          <span class="b-rot">Online</span>
+        </div>
+        <div class="b-corpo">
+          <div class="b-data">5 de novembro de 2026</div>
+          <div class="b-horas"><span class="b-hora">21h00–23h00</span></div>
+          <div class="b-nota">Horário de Portugal Continental</div>
+        </div>
+      </div>
+
+      <!-- PRESENCIAL -->
+      <div class="bloco">
+        <div class="b-topo">
+          <span class="b-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1F4BA8" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21.5s7.2-6.6 7.2-11.4a7.2 7.2 0 1 0-14.4 0C4.8 14.9 12 21.5 12 21.5z" />
+              <circle cx="12" cy="10" r="2.7" />
+            </svg>
+          </span>
+          <span class="b-rot">Presencial</span>
+        </div>
+        <div class="b-corpo">
+          <div class="b-data">7 de novembro de 2026</div>
+          <div class="b-horas">
+            <span class="b-hora">9h30–13h00</span>
+            <span class="b-hora">14h00–18h30</span>
+          </div>
+          <div class="b-morada">
+            <div class="casa">Instituto EPAP</div>
+            <div class="rua">Av. António Serpa, 32 – 1.º andar<br />Salas de formação, Lisboa</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rodape">
+        <span class="ponto"></span>
+        <span>Joana Caçoeiro · Terapeuta da Fala</span>
+      </div>
+    </div>
+  </body>
+</html>
