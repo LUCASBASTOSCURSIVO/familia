@@ -48,7 +48,11 @@ isso a cor muda no atributo `stroke`.
 ```bash
 npm run dev      # preview no browser com live reload
 npm run check    # lint + runtime + layout + motion + contraste
-npm run render   # gera o MP4 em renders/
+npm run render   # gera o MP4 em renders/ (qualidade standard, para publicar)
+
+# Para revisões, use o modo rascunho — mexe só na compressão, mantém os
+# 1080x1920 e o texto legível, e corre bastante mais depressa:
+npx hyperframes@0.7.71 render --quality draft
 ```
 
 O render exige `ffmpeg` e `ffprobe` no PATH e Node.js 22+.
