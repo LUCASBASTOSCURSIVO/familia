@@ -33,7 +33,7 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
         margin: 0; width: 1080px; height: 1920px;
-        overflow: hidden; background: #05070d;
+        overflow: hidden; background: #030E10;
       }
       body {
         font-family: "Inter", sans-serif;
@@ -48,9 +48,9 @@
 
       #scrim {
         background:
-          linear-gradient(180deg, rgba(5,7,13,.52) 0%, rgba(5,7,13,.16) 16%, rgba(5,7,13,0) 32%,
-                                  rgba(5,7,13,0) 58%, rgba(5,7,13,.62) 78%, rgba(5,7,13,.95) 100%),
-          radial-gradient(120% 62% at 50% 46%, rgba(5,7,13,0) 38%, rgba(5,7,13,.72) 100%);
+          linear-gradient(180deg, rgba(3,14,16,.52) 0%, rgba(3,14,16,.16) 16%, rgba(3,14,16,0) 32%,
+                                  rgba(3,14,16,0) 58%, rgba(3,14,16,.62) 78%, rgba(3,14,16,.95) 100%),
+          radial-gradient(120% 62% at 50% 46%, rgba(3,14,16,0) 38%, rgba(3,14,16,.72) 100%);
       }
       #tint {
         background: linear-gradient(160deg, rgba(var(--epap-rgb),.30) 0%, rgba(var(--epap-rgb),0) 42%,
@@ -60,8 +60,8 @@
       /* leito escuro por trás do texto — opacidade sobe nas cenas informativas */
       #textbed {
         background: linear-gradient(180deg,
-          rgba(4,6,12,0) 0%, rgba(4,6,12,.74) 20%, rgba(4,6,12,.86) 48%,
-          rgba(4,6,12,.74) 78%, rgba(4,6,12,0) 100%);
+          rgba(3,13,15,0) 0%, rgba(3,13,15,.74) 20%, rgba(3,13,15,.86) 48%,
+          rgba(3,13,15,.74) 78%, rgba(3,13,15,0) 100%);
       }
       #grain {
         opacity: .13; mix-blend-mode: overlay;
@@ -97,7 +97,7 @@
       .lockup-bed { position: absolute; left: 50%; top: 50%;
         width: 1240px; height: 940px; transform: translate(-50%, -50%);
         background: radial-gradient(closest-side,
-          rgba(4,6,12,.90) 0%, rgba(4,6,12,.78) 42%, rgba(4,6,12,.34) 74%, rgba(4,6,12,0) 100%);
+          rgba(3,13,15,.90) 0%, rgba(3,13,15,.78) 42%, rgba(3,13,15,.34) 74%, rgba(3,13,15,0) 100%);
       }
 
       /* selo dourado */
@@ -193,7 +193,7 @@
         background: rgba(255,255,255,.16); border-radius: 3px; overflow: hidden; }
       #progress { width: 100%; height: 100%; transform-origin: left center;
         background: linear-gradient(90deg, var(--epap-lt), #ffffff); }
-      #fadeout { background: #05070d; }
+      #fadeout { background: #030E10; }
     </style>
   </head>
   <body>

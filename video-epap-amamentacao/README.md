@@ -50,9 +50,12 @@ npm run dev      # preview no browser com live reload
 npm run check    # lint + runtime + layout + motion + contraste
 npm run render   # gera o MP4 em renders/ (qualidade standard, para publicar)
 
-# Para revisões, use o modo rascunho — mexe só na compressão, mantém os
-# 1080x1920 e o texto legível, e corre bastante mais depressa:
-npx hyperframes@0.7.71 render --quality draft
+# Para revisões: --fps 24 corta 20% dos fotogramas e é o que realmente
+# acelera. O gargalo é o Chrome a rasterizar cada fotograma, não a
+# compressão, por isso --quality draft sozinho quase não muda o tempo
+# (medido: 20m22s em draft contra 20m39s em standard) — só reduz o
+# tamanho do ficheiro.
+npx hyperframes@0.7.71 render --fps 24 --quality draft
 ```
 
 O render exige `ffmpeg` e `ffprobe` no PATH e Node.js 22+.
